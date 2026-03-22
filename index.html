@@ -1,8 +1,1125 @@
 <!DOCTYPE html>
-<html>
-<head><title>MESH Protocol</title></head>
-<body style="background:#0A0A0A;color:#00FF94;font-family:sans-serif;text-align:center;padding:100px">
-<h1>MESH Protocol</h1>
-<p>Coming soon.</p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MESH Protocol — Encrypted Messaging on the Blockchain</title>
+  <meta name="description" content="No phone number. No email. No server. Encrypted messaging built on Stellar blockchain." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #00FF94;
+      --green-dim: #00cc76;
+      --black: #0A0A0A;
+      --dark: #0F0F0F;
+      --card: #111111;
+      --border: #1a1a1a;
+      --text: #ffffff;
+      --muted: #555555;
+      --stellar: #7B61FF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,148,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,148,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      backdrop-filter: blur(12px);
+      background: rgba(10,10,10,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--green);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 18px;
+      color: #000;
+      letter-spacing: -2px;
+    }
+
+    .nav-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    .nav-cta {
+      background: var(--green);
+      color: #000 !important;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      transition: opacity 0.2s !important;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,255,148,0.08);
+      border: 1px solid rgba(0,255,148,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-family: 'Space Mono', monospace;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease infinite;
+    }
+
+    .hero-title {
+      font-size: clamp(52px, 8vw, 96px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero-title span {
+      color: var(--green);
+      display: block;
+    }
+
+    .hero-sub {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 48px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .pill {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: #888;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .pill-green {
+      border-color: rgba(0,255,148,0.3);
+      color: var(--green);
+      background: rgba(0,255,148,0.05);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: #000;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: transform 0.2s, opacity 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
+
+    .hero-note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+
+    /* ── PHONE MOCKUP ── */
+    .hero-visual {
+      margin-top: 80px;
+      position: relative;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+
+    .phone {
+      width: 260px;
+      height: 520px;
+      background: #111;
+      border-radius: 36px;
+      border: 2px solid #222;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 80px rgba(0,255,148,0.08), 0 40px 80px rgba(0,0,0,0.8);
+    }
+
+    .phone-screen {
+      padding: 20px 16px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phone-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .phone-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: #1A3D2B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .phone-contact { font-size: 13px; font-weight: 600; }
+    .phone-status { font-size: 10px; color: var(--green); font-family: 'Space Mono', monospace; }
+
+    .msg {
+      max-width: 75%;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      line-height: 1.5;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .msg-in {
+      background: #1a1a1a;
+      color: #ccc;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg-out {
+      background: #0d2b1a;
+      color: var(--green);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg-time {
+      font-size: 9px;
+      color: var(--muted);
+      margin-top: 2px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .msg-wrap { display: flex; flex-direction: column; }
+    .msg-wrap-out { align-items: flex-end; }
+
+    .phone-input {
+      margin-top: auto;
+      background: #1a1a1a;
+      border-radius: 20px;
+      padding: 10px 14px;
+      font-size: 10px;
+      color: #444;
+      font-family: 'Space Mono', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .phone-send {
+      width: 24px;
+      height: 24px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    /* ── SECTION SHARED ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      margin-top: 64px;
+      background: var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--card);
+      padding: 40px 32px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+
+    .step-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .step-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 64px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0,255,148,0.2);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    .compare-wrap {
+      margin-top: 64px;
+      overflow-x: auto;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    thead tr {
+      background: #111;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      padding: 20px 24px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    th.highlight { color: var(--green); }
+
+    td {
+      padding: 18px 24px;
+      border-bottom: 1px solid #151515;
+      font-size: 13px;
+      color: #999;
+    }
+
+    td.highlight { color: var(--text); font-weight: 600; }
+
+    .check { color: var(--green); font-size: 16px; }
+    .cross { color: #333; font-size: 16px; }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.01); }
+
+    /* ── STELLAR SECTION ── */
+    .stellar-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 64px;
+      flex-wrap: wrap;
+    }
+
+    .stellar-logo {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #7B61FF, #4B3FCC);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      flex-shrink: 0;
+    }
+
+    .stellar-content { flex: 1; min-width: 260px; }
+
+    .stellar-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .stellar-desc {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .stellar-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .stellar-stat-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--stellar);
+    }
+
+    .stellar-stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── DOWNLOAD ── */
+    .download-section {
+      text-align: center;
+    }
+
+    .download-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 80px 48px;
+      margin-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .download-card::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0,255,148,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .download-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .download-sub {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 40px;
+    }
+
+    .download-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .btn-store {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 14px 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .btn-store:hover { border-color: var(--green); transform: translateY(-2px); }
+    .btn-store-icon { font-size: 24px; }
+    .btn-store-label { font-size: 10px; color: var(--muted); display: block; text-align: left; }
+    .btn-store-name { font-size: 15px; font-weight: 700; display: block; }
+
+    .download-note {
+      font-size: 12px;
+      color: var(--muted);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── DONATE ── */
+    .donate-card {
+      background: linear-gradient(135deg, rgba(0,255,148,0.04), rgba(0,255,148,0.01));
+      border: 1px solid rgba(0,255,148,0.15);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    .donate-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .donate-desc {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .donate-address {
+      background: #0d0d0d;
+      border: 1px solid #1a1a1a;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      word-break: break-all;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .donate-address:hover { border-color: var(--green); }
+    .donate-note { font-size: 11px; color: var(--muted); margin-top: 10px; font-family: 'Space Mono', monospace; }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-left { display: flex; flex-direction: column; gap: 8px; }
+    .footer-copy { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
+
+    .social-links {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+      color: var(--muted);
+    }
+
+    .social-link:hover { border-color: var(--green); transform: translateY(-2px); color: var(--green); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .stellar-section { padding: 40px 24px; gap: 32px; }
+      footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">M</div>
+      <span class="nav-logo-text">MESH</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#download" class="nav-cta">Get the App</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      TESTNET LIVE — MAINNET COMING SOON
+    </div>
+
+    <h1 class="hero-title">
+      Message anyone.<br/>
+      <span>Leave no trace.</span>
+    </h1>
+
+    <p class="hero-sub">
+      No phone number. No email. No central server.
+      Encrypted messaging built on the Stellar blockchain —
+      your identity is your keys.
+    </p>
+
+    <div class="hero-pills">
+      <span class="pill pill-green">✦ End-to-end encrypted</span>
+      <span class="pill">No KYC</span>
+      <span class="pill">Stellar blockchain</span>
+      <span class="pill">IPFS storage</span>
+      <span class="pill pill-green">@username search</span>
+      <span class="pill">BIP39 backup</span>
+    </div>
+
+    <div class="hero-actions">
+      <a href="#download" class="btn-primary">
+        ↓ Download APK
+      </a>
+      <a href="https://github.com/Mohamed9522/mesh-protocol" class="btn-secondary" target="_blank">
+        ★ View on GitHub
+      </a>
+    </div>
+
+    <p class="hero-note">Android · Free · Open source at v0.0.1</p>
+
+    <!-- PHONE MOCKUP -->
+    <div class="hero-visual">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="phone-header">
+            <div class="phone-avatar">Z</div>
+            <div>
+              <div class="phone-contact">@zuzu</div>
+              <div class="phone-status">● encrypted</div>
+            </div>
+          </div>
+
+          <div class="msg-wrap">
+            <div class="msg msg-in">hey, found you by username. no address needed 👀</div>
+            <div class="msg-time">12:01</div>
+          </div>
+
+          <div class="msg-wrap msg-wrap-out">
+            <div class="msg msg-out">exactly. no phone number. no email. just @mesh</div>
+            <div class="msg-time" style="text-align:right">12:01</div>
+          </div>
+
+          <div class="msg-wrap">
+            <div class="msg msg-in">and the message is on-chain?</div>
+            <div class="msg-time">12:02</div>
+          </div>
+
+          <div class="msg-wrap msg-wrap-out">
+            <div class="msg msg-out">stellar tx + ipfs. nobody reads it but you.</div>
+            <div class="msg-time" style="text-align:right">12:02</div>
+          </div>
+
+          <div class="phone-input">
+            <span>type a message...</span>
+            <div class="phone-send">↑</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="section-label">// HOW IT WORKS</div>
+    <h2 class="section-title">Four steps.<br/>Zero compromise.</h2>
+    <p class="section-sub">Every message travels through Stellar and IPFS — encrypted before it leaves your device. No server ever sees your plaintext.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <span class="step-icon">🔑</span>
+        <div class="step-title">Generate your keys</div>
+        <p class="step-desc">A 12-word BIP39 mnemonic generates your Stellar address and NaCl encryption keys. Same phrase, any device, forever.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <span class="step-icon">🔒</span>
+        <div class="step-title">Encrypt on device</div>
+        <p class="step-desc">Your message is encrypted using NaCl box encryption before it leaves your phone. The relay never sees plaintext.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <span class="step-icon">⛓️</span>
+        <div class="step-title">Send via Stellar</div>
+        <p class="step-desc">The encrypted blob is stored on IPFS. A Stellar transaction carries the pointer to your recipient. Cost: 0.00001 XLM.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <span class="step-icon">📩</span>
+        <div class="step-title">Receive and decrypt</div>
+        <p class="step-desc">Recipient fetches the pointer, retrieves from IPFS, and decrypts locally. Only they can read it.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-label">// FEATURES</div>
+    <h2 class="section-title">Built different.</h2>
+    <p class="section-sub">Everything Signal and Telegram won't give you.</p>
+
+    <div class="features">
+      <div class="feature-card">
+        <span class="feature-icon">👤</span>
+        <div class="feature-title">Zero identity required</div>
+        <p class="feature-desc">No phone number. No email. No real name. Your identity is a 12-word phrase and an @username you choose.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <div class="feature-title">Find by @username</div>
+        <p class="feature-desc">Search any user by their @username. No address copy-pasting, no QR scanning required.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">💸</span>
+        <div class="feature-title">Send XLM in chat</div>
+        <p class="feature-desc">Send Stellar (XLM) directly inside any conversation. Money and messages in one encrypted thread. Coming soon.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌐</span>
+        <div class="feature-title">Decentralized storage</div>
+        <p class="feature-desc">Messages live on IPFS — not on our servers. We cannot delete them. We cannot read them.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔄</span>
+        <div class="feature-title">Restore anywhere</div>
+        <p class="feature-desc">Your 12-word mnemonic is your entire account. New phone, same phrase — full access instantly.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <div class="feature-title">Near-zero cost</div>
+        <p class="feature-desc">Each message costs 0.00001 XLM — roughly $0.000003. Send thousands of messages for less than a cent.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- COMPARE -->
+  <section id="compare">
+    <div class="section-label">// COMPARISON</div>
+    <h2 class="section-title">How we stack up.</h2>
+    <p class="section-sub">MESH versus the alternatives — feature by feature.</p>
+
+    <div class="compare-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Signal</th>
+            <th>Telegram</th>
+            <th>Session</th>
+            <th class="highlight">MESH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="highlight">Phone number required</td>
+            <td><span class="cross">✗ Yes</span></td>
+            <td><span class="cross">✗ Yes</span></td>
+            <td><span class="check">✓ No</span></td>
+            <td class="highlight"><span class="check">✓ No</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">E2E encrypted by default</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗ Optional</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="highlight"><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">Blockchain transport</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="highlight"><span class="check">✓ Stellar</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">Decentralized storage</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="highlight"><span class="check">✓ IPFS</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">Send crypto in chat</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="highlight"><span class="check">✓ XLM</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">Seed phrase recovery</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td class="highlight"><span class="check">✓ BIP39</span></td>
+          </tr>
+          <tr>
+            <td class="highlight">Username search</td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+            <td class="highlight"><span class="check">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- STELLAR -->
+  <section id="stellar">
+    <div class="stellar-section">
+      <div class="stellar-logo">✦</div>
+      <div class="stellar-content">
+        <div class="section-label">// BUILT ON STELLAR</div>
+        <div class="stellar-title">Powered by the Stellar Network</div>
+        <p class="stellar-desc">
+          MESH uses the Stellar blockchain as its message transport layer.
+          Every message is a Stellar transaction — fast, cheap, and permanent.
+          We are proud to build on one of the most efficient and accessible
+          blockchain networks in the world.
+        </p>
+        <div class="stellar-stats">
+          <div>
+            <div class="stellar-stat-val">0.00001</div>
+            <div class="stellar-stat-label">XLM per message</div>
+          </div>
+          <div>
+            <div class="stellar-stat-val">&lt; 5s</div>
+            <div class="stellar-stat-label">transaction finality</div>
+          </div>
+          <div>
+            <div class="stellar-stat-val">$0</div>
+            <div class="stellar-stat-label">MESH infrastructure fee</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- DOWNLOAD -->
+  <section id="download" class="download-section">
+    <div class="section-label">// GET MESH</div>
+    <h2 class="section-title">Ready to disappear<br/>from the grid?</h2>
+
+    <div class="download-card">
+      <div class="download-title">Download MESH</div>
+      <p class="download-sub">Android APK — free, always. No account. No signup.</p>
+
+      <div class="download-buttons">
+        <a href="#" class="btn-store">
+          <span class="btn-store-icon">⬇</span>
+          <span>
+            <span class="btn-store-label">Download for</span>
+            <span class="btn-store-name">Android APK</span>
+          </span>
+        </a>
+        <a href="#" class="btn-store" style="opacity:0.4;cursor:not-allowed;">
+          <span class="btn-store-icon">🍎</span>
+          <span>
+            <span class="btn-store-label">Coming soon</span>
+            <span class="btn-store-name">iOS App</span>
+          </span>
+        </a>
+        <a href="#" class="btn-store" style="opacity:0.4;cursor:not-allowed;">
+          <span class="btn-store-icon">🖥</span>
+          <span>
+            <span class="btn-store-label">Coming soon</span>
+            <span class="btn-store-name">Desktop</span>
+          </span>
+        </a>
+      </div>
+
+      <p class="download-note">v0.0.1 · Testnet · Android only for now</p>
+
+      <!-- DONATE -->
+      <div class="donate-card">
+        <div class="donate-title">☕ Support MESH</div>
+        <p class="donate-desc">MESH is built by one developer and costs almost nothing to run. If it helps you — send a coffee in XLM.</p>
+        <div class="donate-address" onclick="navigator.clipboard.writeText(this.innerText)" title="Click to copy">
+          YOUR_STELLAR_DONATION_ADDRESS_HERE
+        </div>
+        <p class="donate-note">click to copy · XLM on Stellar mainnet</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <a href="/" class="nav-logo" style="text-decoration:none;">
+        <div class="nav-logo-mark">M</div>
+        <span class="nav-logo-text">MESH Protocol</span>
+      </a>
+      <span class="footer-copy">© 2026 MESH Protocol · meshprotocol.ru · Built on Stellar</span>
+    </div>
+
+    <div class="social-links">
+      <a href="https://github.com/Mohamed9522/mesh-protocol" class="social-link" target="_blank" title="GitHub">
+        ⌥
+      </a>
+      <a href="#" class="social-link" title="X / Twitter" style="opacity:0.3;cursor:not-allowed;">𝕏</a>
+      <a href="#" class="social-link" title="Telegram" style="opacity:0.3;cursor:not-allowed;">✈</a>
+    </div>
+  </footer>
+
 </body>
 </html>
