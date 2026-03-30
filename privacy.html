@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — MESH Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --accent:#00FF94; --black:#0A0A0A; --card:#111; --border:#1a1a1a; --text:#fff; --muted:#555; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; line-height: 1.7; }
+    body::after { content:''; position:fixed; inset:0; background-image: linear-gradient(rgba(0,255,148,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,148,0.02) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,10,0.8); border-bottom:1px solid var(--border); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-mark { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:18px; color:#000; }
+    .nav-logo-text { font-size:16px; font-weight:700; color:var(--text); letter-spacing:0.05em; }
+    .nav-back { color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; text-decoration:none; transition:color 0.2s; }
+    .nav-back:hover { color:var(--accent); }
+
+    .page { position:relative; z-index:1; max-width:740px; margin:0 auto; padding:140px 24px 100px; }
+    .page-tag { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:16px; }
+    .page-title { font-size:clamp(36px,5vw,64px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:16px; }
+    .page-meta { font-size:13px; color:var(--muted); font-family:'Space Mono',monospace; margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+
+    h2 { font-size:20px; font-weight:700; margin-top:48px; margin-bottom:12px; color:var(--text); }
+    p { font-size:15px; color:#888; margin-bottom:16px; }
+    ul { margin-left:20px; margin-bottom:16px; }
+    li { font-size:15px; color:#888; margin-bottom:8px; line-height:1.7; }
+    strong { color:var(--text); }
+    .accent { color:var(--accent); }
+
+    .highlight-box { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px 28px; margin:32px 0; }
+    .highlight-box p { margin:0; }
+
+    .data-table { width:100%; border-collapse:collapse; margin:24px 0; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+    .data-table th { background:#111; padding:14px 20px; text-align:left; font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; letter-spacing:0.08em; border-bottom:1px solid var(--border); }
+    .data-table td { padding:14px 20px; font-size:13px; color:#888; border-bottom:1px solid #151515; }
+    .data-table tr:last-child td { border-bottom:none; }
+    .data-table td:first-child { color:var(--text); font-weight:600; }
+    .yes { color:var(--accent); }
+    .no  { color:#333; }
+
+    footer-mini { display:block; text-align:center; padding:40px 24px; font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; border-top:1px solid var(--border); position:relative; z-index:1; }
+    footer-mini a { color:var(--muted); text-decoration:none; }
+    footer-mini a:hover { color:var(--accent); }
+
+    @media (max-width:768px) { nav { padding:16px 20px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">M</div>
+      <span class="nav-logo-text">MESH</span>
+    </a>
+    <a href="/" class="nav-back">← Back to home</a>
+  </nav>
+
+  <div class="page">
+    <div class="page-tag">// Legal</div>
+    <h1 class="page-title">Privacy<br/><span class="accent">Policy</span></h1>
+    <p class="page-meta">Last updated: March 2026 &nbsp;·&nbsp; We collect almost nothing. Here's exactly what we do handle.</p>
+
+    <div class="highlight-box">
+      <p><strong>The short version:</strong> MESH cannot read your messages — they are encrypted on your device before they leave it. We don't know your name, email, or phone number. The only things our relay server stores are your Stellar address, your NaCl public key, and your chosen username — all of which are public by design.</p>
+    </div>
+
+    <h2>1. Who We Are</h2>
+    <p>MESH Protocol is an independent project developed by <strong>Mohamed Abdellah</strong>. The relay server operates at <span class="accent">80.93.52.92</span> and the website is hosted at <span class="accent">meshprotocol.ru</span>.</p>
+    <p>Contact: <a href="mailto:mohamed.abdellah.22@outlook.com" style="color:var(--accent)">mohamed.abdellah.22@outlook.com</a></p>
+
+    <h2>2. What We Collect — and What We Don't</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Data Type</th><th>Collected?</th><th>Where?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Your name</td><td><span class="no">✗ Never</span></td><td>—</td></tr>
+        <tr><td>Email address</td><td><span class="no">✗ Never</span></td><td>—</td></tr>
+        <tr><td>Phone number</td><td><span class="no">✗ Never</span></td><td>—</td></tr>
+        <tr><td>IP address</td><td><span class="no">✗ Not stored</span></td><td>Briefly visible in server logs (not retained)</td></tr>
+        <tr><td>Message content</td><td><span class="no">✗ Never readable</span></td><td>Encrypted blobs only — stored on IPFS, not our server</td></tr>
+        <tr><td>Stellar public address</td><td><span class="yes">✓ Yes</span></td><td>Relay server — public by nature of blockchain</td></tr>
+        <tr><td>NaCl public key</td><td><span class="yes">✓ Yes</span></td><td>Relay server — needed for encryption, public by design</td></tr>
+        <tr><td>Username (@handle)</td><td><span class="yes">✓ Yes</span></td><td>Relay server — chosen by you, publicly searchable</td></tr>
+        <tr><td>Message pointers (memoKey)</td><td><span class="yes">✓ Temporarily</span></td><td>Relay server — deleted after delivery confirmed</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. How Your Messages Actually Work</h2>
+    <p>Your messages are <strong>encrypted on your device</strong> using NaCl box encryption (Curve25519 + XSalsa20 + Poly1305) before they leave your phone. The encrypted blob is uploaded to IPFS via Pinata. A pointer to that blob travels via the Stellar blockchain.</p>
+    <p>Our relay server only ever sees an encrypted pointer — never the message content. We have no technical ability to read your messages. This is not a policy — it is a cryptographic guarantee.</p>
+
+    <h2>4. Data Stored on Your Device</h2>
+    <p>The MESH app stores the following locally on your device using Expo SecureStore (hardware-backed encrypted storage on supported devices):</p>
+    <ul>
+      <li>Your Stellar key pair (public + secret)</li>
+      <li>Your NaCl encryption key pair (public + secret)</li>
+      <li>Your 12-word BIP39 recovery mnemonic</li>
+      <li>Your chosen username</li>
+      <li>Pinata API credentials (for IPFS uploads)</li>
+      <li>All messages and contacts (in a local SQLite database)</li>
+    </ul>
+    <p><strong>None of this is transmitted to us.</strong> It lives only on your device. If you uninstall the app or use "Clear All Data", it is permanently deleted. Make sure you have your recovery phrase before doing so.</p>
+
+    <h2>5. Third-Party Services</h2>
+    <p>MESH uses the following third-party services:</p>
+    <ul>
+      <li><strong>Stellar Network</strong> — public blockchain. Transactions (message pointers) are permanently recorded on-chain. The Stellar Foundation operates this network independently of MESH.</li>
+      <li><strong>Pinata / IPFS</strong> — encrypted message storage. Pinata stores encrypted blobs. They cannot decrypt them. Pinata's own privacy policy applies to their service.</li>
+      <li><strong>sweb.ru</strong> — our relay server hosting provider (Russia). The relay server stores only the public data described in Section 2.</li>
+      <li><strong>Cloudflare Pages</strong> — website hosting. Standard Cloudflare analytics may apply to the meshprotocol.ru website.</li>
+    </ul>
+
+    <h2>6. Cookies and Tracking</h2>
+    <p>The MESH website (meshprotocol.ru) does <strong>not</strong> use advertising cookies, tracking pixels, or analytics scripts. The only browser storage used is <code style="background:#1a1a1a;padding:2px 6px;border-radius:4px;font-size:13px;">localStorage</code> to remember your chosen accent color preference.</p>
+    <p>The MESH mobile app does not use any analytics SDK, crash reporting service, or advertising framework.</p>
+
+    <h2>7. Data Retention</h2>
+    <ul>
+      <li><strong>Message pointers</strong> on the relay: deleted after you confirm delivery, or after 30 days if undelivered</li>
+      <li><strong>Username registry</strong>: retained indefinitely while your account exists. You can request deletion by contacting us</li>
+      <li><strong>IPFS blobs</strong>: stored on Pinata under our account. We do not currently auto-delete them. This may change as the service scales</li>
+      <li><strong>Local device data</strong>: you control this entirely via "Clear All Data" in Settings</li>
+    </ul>
+
+    <h2>8. Your Rights</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Delete your username from our relay by contacting us</li>
+      <li>Delete all local data using "Clear All Data" in Settings → Danger Zone</li>
+      <li>Request information about what we store about your Stellar address</li>
+    </ul>
+    <p>Because we don't know who you are, you'll need to identify yourself by your Stellar public address when making a request.</p>
+
+    <h2>9. Children</h2>
+    <p>MESH is not intended for users under 13 years of age. We do not knowingly collect data from children. Because we collect no personal information at all, we have no way to verify age — parental guidance is advised.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this policy as MESH evolves. The "Last updated" date will always be current. Continued use of MESH after changes means you accept the updated policy.</p>
+
+    <h2>11. Contact</h2>
+    <p>Privacy questions or deletion requests: <a href="mailto:mohamed.abdellah.22@outlook.com" style="color:var(--accent)">mohamed.abdellah.22@outlook.com</a></p>
+  </div>
+
+  <footer-mini>
+    © 2026 MESH Protocol &nbsp;·&nbsp;
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/terms.html">Terms of Service</a> &nbsp;·&nbsp;
+    meshprotocol.ru
+  </footer-mini>
+
+</body>
+</html>

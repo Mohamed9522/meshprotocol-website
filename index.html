@@ -10,8 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --green: #00FF94;
-      --green-dim: #00cc76;
+      --accent: #00FF94;
+      --accent-dim: #00cc76;
+      --accent-bg: rgba(0,255,148,0.08);
+      --accent-border: rgba(0,255,148,0.2);
+      --accent-faint: rgba(0,255,148,0.03);
       --black: #0A0A0A;
       --dark: #0F0F0F;
       --card: #111111;
@@ -21,10 +24,15 @@
       --stellar: #7B61FF;
     }
 
+    /* ── ACCENT THEMES ── */
+    [data-accent="green"]  { --accent:#00FF94; --accent-dim:#00cc76; --accent-bg:rgba(0,255,148,0.08); --accent-border:rgba(0,255,148,0.2); --accent-faint:rgba(0,255,148,0.03); }
+    [data-accent="blue"]   { --accent:#4DA8FF; --accent-dim:#2d8fe8; --accent-bg:rgba(77,168,255,0.08); --accent-border:rgba(77,168,255,0.2); --accent-faint:rgba(77,168,255,0.03); }
+    [data-accent="purple"] { --accent:#B06EFF; --accent-dim:#9044ee; --accent-bg:rgba(176,110,255,0.08); --accent-border:rgba(176,110,255,0.2); --accent-faint:rgba(176,110,255,0.03); }
+    [data-accent="orange"] { --accent:#FF8C42; --accent-dim:#e67520; --accent-bg:rgba(255,140,66,0.08); --accent-border:rgba(255,140,66,0.2); --accent-faint:rgba(255,140,66,0.03); }
+    [data-accent="white"]  { --accent:#FFFFFF; --accent-dim:#cccccc; --accent-bg:rgba(255,255,255,0.06); --accent-border:rgba(255,255,255,0.15); --accent-faint:rgba(255,255,255,0.02); }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--black);
       color: var(--text);
@@ -32,747 +40,262 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
     body::before {
       content: '';
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
+      pointer-events: none; z-index: 0; opacity: 0.4;
     }
 
-    /* ── GRID BACKGROUND ── */
     body::after {
       content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(0,255,148,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,255,148,0.03) 1px, transparent 1px);
+      position: fixed; inset: 0;
+      background-image: linear-gradient(var(--accent-faint) 1px, transparent 1px), linear-gradient(90deg, var(--accent-faint) 1px, transparent 1px);
       background-size: 48px 48px;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; z-index: 0;
+      transition: background-image 0.4s;
     }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 20px 48px;
       backdrop-filter: blur(12px);
       background: rgba(10,10,10,0.8);
       border-bottom: 1px solid var(--border);
     }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
     .nav-logo-mark {
-      width: 36px;
-      height: 36px;
-      background: var(--green);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Mono', monospace;
-      font-weight: 700;
-      font-size: 18px;
-      color: #000;
-      letter-spacing: -2px;
+      width: 36px; height: 36px;
+      background: var(--accent); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace; font-weight: 700; font-size: 18px;
+      color: #000; letter-spacing: -2px; transition: background 0.4s;
     }
-
-    .nav-logo-text {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      letter-spacing: 0.05em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      color: var(--muted);
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--green); }
-
-    .nav-cta {
-      background: var(--green);
-      color: #000 !important;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-weight: 700 !important;
-      transition: opacity 0.2s !important;
-    }
-
+    .nav-logo-text { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: 0.05em; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta { background: var(--accent); color: #000 !important; padding: 10px 20px; border-radius: 8px; font-weight: 700 !important; transition: opacity 0.2s, background 0.4s !important; }
     .nav-cta:hover { opacity: 0.85; }
+
+    /* ── ACCENT SWITCHER ── */
+    .accent-switcher {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+    }
+    .accent-label {
+      font-family: 'Space Mono', monospace; font-size: 9px; color: #333;
+      letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2px;
+    }
+    .accent-dots { display: flex; gap: 8px; }
+    .accent-dot {
+      width: 20px; height: 20px; border-radius: 50%; cursor: pointer;
+      border: 2px solid transparent; transition: transform 0.2s, border-color 0.2s;
+      position: relative;
+    }
+    .accent-dot:hover { transform: scale(1.2); }
+    .accent-dot.active { border-color: white; transform: scale(1.15); }
+    .accent-dot[data-color="green"]  { background: #00FF94; }
+    .accent-dot[data-color="blue"]   { background: #4DA8FF; }
+    .accent-dot[data-color="purple"] { background: #B06EFF; }
+    .accent-dot[data-color="orange"] { background: #FF8C42; }
+    .accent-dot[data-color="white"]  { background: #FFFFFF; }
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
+      position: relative; z-index: 1; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
     }
-
     .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(0,255,148,0.08);
-      border: 1px solid rgba(0,255,148,0.2);
-      border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-family: 'Space Mono', monospace;
-      color: var(--green);
-      letter-spacing: 0.1em;
-      margin-bottom: 40px;
-      animation: fadeUp 0.6s ease both;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-bg); border: 1px solid var(--accent-border);
+      border-radius: 100px; padding: 6px 16px;
+      font-size: 12px; font-family: 'Space Mono', monospace;
+      color: var(--accent); letter-spacing: 0.1em; margin-bottom: 40px;
+      animation: fadeUp 0.6s ease both; transition: color 0.4s, background 0.4s, border-color 0.4s;
     }
-
-    .hero-badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--green);
-      animation: pulse 2s ease infinite;
-    }
-
-    .hero-title {
-      font-size: clamp(52px, 8vw, 96px);
-      font-weight: 800;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      margin-bottom: 24px;
-      animation: fadeUp 0.6s 0.1s ease both;
-    }
-
-    .hero-title span {
-      color: var(--green);
-      display: block;
-    }
-
-    .hero-sub {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--muted);
-      max-width: 560px;
-      line-height: 1.7;
-      margin-bottom: 48px;
-      animation: fadeUp 0.6s 0.2s ease both;
-    }
-
-    .hero-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 48px;
-      animation: fadeUp 0.6s 0.3s ease both;
-    }
-
-    .pill {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 8px 16px;
-      font-size: 13px;
-      color: #888;
-      font-family: 'Space Mono', monospace;
-    }
-
-    .pill-green {
-      border-color: rgba(0,255,148,0.3);
-      color: var(--green);
-      background: rgba(0,255,148,0.05);
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: fadeUp 0.6s 0.4s ease both;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #000;
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      letter-spacing: 0.02em;
-      transition: transform 0.2s, opacity 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; transition: background 0.4s; }
+    .hero-title { font-size: clamp(52px, 8vw, 96px); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 24px; animation: fadeUp 0.6s 0.1s ease both; }
+    .hero-title span { color: var(--accent); display: block; transition: color 0.4s; }
+    .hero-sub { font-size: clamp(16px, 2vw, 20px); color: var(--muted); max-width: 560px; line-height: 1.7; margin-bottom: 48px; animation: fadeUp 0.6s 0.2s ease both; }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 48px; animation: fadeUp 0.6s 0.3s ease both; }
+    .pill { background: var(--card); border: 1px solid var(--border); border-radius: 100px; padding: 8px 16px; font-size: 13px; color: #888; font-family: 'Space Mono', monospace; }
+    .pill-accent { border-color: var(--accent-border); color: var(--accent); background: var(--accent-bg); transition: color 0.4s, background 0.4s, border-color 0.4s; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; animation: fadeUp 0.6s 0.4s ease both; }
+    .btn-primary { background: var(--accent); color: #000; padding: 16px 32px; border-radius: 12px; font-size: 15px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; transition: transform 0.2s, opacity 0.2s, background 0.4s; display: inline-flex; align-items: center; gap: 8px; }
     .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, transform 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn-secondary:hover { border-color: var(--green); transform: translateY(-2px); }
-
-    .hero-note {
-      margin-top: 20px;
-      font-size: 12px;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-      animation: fadeUp 0.6s 0.5s ease both;
-    }
+    .btn-secondary { background: transparent; color: var(--text); padding: 16px 32px; border-radius: 12px; font-size: 15px; font-weight: 600; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .hero-note { margin-top: 20px; font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; animation: fadeUp 0.6s 0.5s ease both; }
 
     /* ── PHONE MOCKUP ── */
-    .hero-visual {
-      margin-top: 80px;
-      position: relative;
-      animation: fadeUp 0.8s 0.5s ease both;
-    }
-
-    .phone {
-      width: 260px;
-      height: 520px;
-      background: #111;
-      border-radius: 36px;
-      border: 2px solid #222;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 80px rgba(0,255,148,0.08), 0 40px 80px rgba(0,0,0,0.8);
-    }
-
-    .phone-screen {
-      padding: 20px 16px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .phone-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1a1a1a;
-    }
-
-    .phone-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: #1A3D2B;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--green);
-    }
-
+    .hero-visual { margin-top: 80px; position: relative; animation: fadeUp 0.8s 0.5s ease both; }
+    .phone { width: 260px; height: 520px; background: #111; border-radius: 36px; border: 2px solid #222; margin: 0 auto; position: relative; overflow: hidden; box-shadow: 0 0 80px var(--accent-bg), 0 40px 80px rgba(0,0,0,0.8); transition: box-shadow 0.4s; }
+    .phone-screen { padding: 20px 16px; height: 100%; display: flex; flex-direction: column; gap: 10px; }
+    .phone-header { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid #1a1a1a; }
+    .phone-avatar { width: 32px; height: 32px; border-radius: 10px; background: #1A3D2B; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--accent); transition: color 0.4s; }
     .phone-contact { font-size: 13px; font-weight: 600; }
-    .phone-status { font-size: 10px; color: var(--green); font-family: 'Space Mono', monospace; }
-
-    .msg {
-      max-width: 75%;
-      padding: 8px 12px;
-      border-radius: 12px;
-      font-size: 11px;
-      line-height: 1.5;
-      font-family: 'Space Mono', monospace;
-    }
-
-    .msg-in {
-      background: #1a1a1a;
-      color: #ccc;
-      align-self: flex-start;
-      border-bottom-left-radius: 4px;
-    }
-
-    .msg-out {
-      background: #0d2b1a;
-      color: var(--green);
-      align-self: flex-end;
-      border-bottom-right-radius: 4px;
-    }
-
-    .msg-time {
-      font-size: 9px;
-      color: var(--muted);
-      margin-top: 2px;
-      font-family: 'Space Mono', monospace;
-    }
-
+    .phone-status { font-size: 10px; color: var(--accent); font-family: 'Space Mono', monospace; transition: color 0.4s; }
+    .msg { max-width: 75%; padding: 8px 12px; border-radius: 12px; font-size: 11px; line-height: 1.5; font-family: 'Space Mono', monospace; }
+    .msg-in { background: #1a1a1a; color: #ccc; align-self: flex-start; border-bottom-left-radius: 4px; }
+    .msg-out { background: #0d2b1a; color: var(--accent); align-self: flex-end; border-bottom-right-radius: 4px; transition: color 0.4s; }
+    .msg-time { font-size: 9px; color: var(--muted); margin-top: 2px; font-family: 'Space Mono', monospace; }
     .msg-wrap { display: flex; flex-direction: column; }
     .msg-wrap-out { align-items: flex-end; }
+    .phone-input { margin-top: auto; background: #1a1a1a; border-radius: 20px; padding: 10px 14px; font-size: 10px; color: #444; font-family: 'Space Mono', monospace; display: flex; align-items: center; justify-content: space-between; }
+    .phone-send { width: 24px; height: 24px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; transition: background 0.4s; }
 
-    .phone-input {
-      margin-top: auto;
-      background: #1a1a1a;
-      border-radius: 20px;
-      padding: 10px 14px;
-      font-size: 10px;
-      color: #444;
-      font-family: 'Space Mono', monospace;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .phone-send {
-      width: 24px;
-      height: 24px;
-      background: var(--green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-    }
-
-    /* ── SECTION SHARED ── */
-    section {
-      position: relative;
-      z-index: 1;
-      padding: 100px 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--green);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-      margin-bottom: 16px;
-    }
-
-    .section-sub {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-      max-width: 560px;
-    }
+    /* ── SECTIONS ── */
+    section { position: relative; z-index: 1; padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; transition: color 0.4s; }
+    .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+    .section-sub { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 560px; }
 
     /* ── HOW IT WORKS ── */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2px;
-      margin-top: 64px;
-      background: var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .step {
-      background: var(--card);
-      padding: 40px 32px;
-      position: relative;
-    }
-
-    .step-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--green);
-      letter-spacing: 0.1em;
-      margin-bottom: 20px;
-    }
-
-    .step-icon {
-      font-size: 32px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .step-title {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .step-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; margin-top: 64px; background: var(--border); border-radius: 20px; overflow: hidden; }
+    .step { background: var(--card); padding: 40px 32px; }
+    .step-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 20px; transition: color 0.4s; }
+    .step-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+    .step-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
     /* ── FEATURES ── */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 64px;
-    }
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 64px; }
+    .feature-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: border-color 0.2s, transform 0.2s; }
+    .feature-card:hover { border-color: var(--accent-border); transform: translateY(-4px); }
+    .feature-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+    .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-    .feature-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .feature-card:hover {
-      border-color: rgba(0,255,148,0.2);
-      transform: translateY(-4px);
-    }
-
-    .feature-icon {
-      font-size: 28px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    .feature-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .feature-desc {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ── COMPARISON TABLE ── */
-    .compare-wrap {
-      margin-top: 64px;
-      overflow-x: auto;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    thead tr {
-      background: #111;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      padding: 20px 24px;
-      text-align: left;
-      font-weight: 700;
-      font-size: 13px;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-    }
-
-    th.highlight { color: var(--green); }
-
-    td {
-      padding: 18px 24px;
-      border-bottom: 1px solid #151515;
-      font-size: 13px;
-      color: #999;
-    }
-
+    /* ── COMPARE ── */
+    .compare-wrap { margin-top: 64px; overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    thead tr { background: #111; border-bottom: 1px solid var(--border); }
+    th { padding: 20px 24px; text-align: left; font-weight: 700; font-size: 13px; color: var(--muted); letter-spacing: 0.05em; }
+    th.highlight { color: var(--accent); transition: color 0.4s; }
+    td { padding: 18px 24px; border-bottom: 1px solid #151515; font-size: 13px; color: #999; }
     td.highlight { color: var(--text); font-weight: 600; }
-
-    .check { color: var(--green); font-size: 16px; }
+    .check { color: var(--accent); font-size: 16px; transition: color 0.4s; }
     .cross { color: #333; font-size: 16px; }
-
     tr:last-child td { border-bottom: none; }
     tr:hover td { background: rgba(255,255,255,0.01); }
 
-    /* ── STELLAR SECTION ── */
-    .stellar-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 64px;
-      margin-top: 0;
-      display: flex;
-      align-items: center;
-      gap: 64px;
-      flex-wrap: wrap;
-    }
-
-    .stellar-logo {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #7B61FF, #4B3FCC);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 36px;
-      flex-shrink: 0;
-    }
-
+    /* ── STELLAR ── */
+    .stellar-section { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 64px; margin-top: 0; display: flex; align-items: center; gap: 64px; flex-wrap: wrap; }
+    .stellar-logo { width: 80px; height: 80px; background: linear-gradient(135deg, #7B61FF, #4B3FCC); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 36px; flex-shrink: 0; }
     .stellar-content { flex: 1; min-width: 260px; }
+    .stellar-title { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
+    .stellar-desc { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+    .stellar-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .stellar-stat-val { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: var(--stellar); }
+    .stellar-stat-label { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    .stellar-title {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 12px;
+    /* ── BUILDER SECTION ── */
+    .builder-section {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 64px;
+      display: flex; align-items: flex-start; gap: 48px; flex-wrap: wrap;
     }
-
-    .stellar-desc {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-      margin-bottom: 20px;
+    .builder-avatar {
+      width: 100px; height: 100px; border-radius: 24px;
+      background: linear-gradient(135deg, var(--accent-bg), #1a1a1a);
+      border: 1px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 42px; flex-shrink: 0;
+      transition: background 0.4s, border-color 0.4s;
     }
-
-    .stellar-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
+    .builder-content { flex: 1; min-width: 260px; }
+    .builder-tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase;
+      background: var(--accent-bg); border: 1px solid var(--accent-border);
+      border-radius: 100px; padding: 4px 12px; margin-bottom: 16px;
+      transition: color 0.4s, background 0.4s, border-color 0.4s;
     }
-
-    .stellar-stat-val {
+    .builder-name { font-size: 32px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .builder-title { font-size: 14px; color: var(--muted); margin-bottom: 20px; font-family: 'Space Mono', monospace; }
+    .builder-bio { font-size: 15px; color: #888; line-height: 1.8; margin-bottom: 24px; max-width: 580px; }
+    .builder-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .builder-skill {
+      background: #161616; border: 1px solid #222; border-radius: 8px;
+      padding: 6px 12px; font-size: 12px; color: #666;
       font-family: 'Space Mono', monospace;
-      font-size: 22px;
-      font-weight: 700;
-      color: var(--stellar);
     }
-
-    .stellar-stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 2px;
+    .builder-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .builder-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #161616; border: 1px solid #222; border-radius: 10px;
+      padding: 10px 16px; font-size: 13px; color: #888;
+      text-decoration: none; transition: border-color 0.2s, color 0.2s;
     }
+    .builder-link:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── DOWNLOAD ── */
-    .download-section {
-      text-align: center;
-    }
-
-    .download-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 80px 48px;
-      margin-top: 64px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .download-card::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(0,255,148,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .download-title {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 800;
-      margin-bottom: 16px;
-      letter-spacing: -0.02em;
-    }
-
-    .download-sub {
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 40px;
-    }
-
-    .download-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .btn-store {
-      background: #161616;
-      border: 1px solid #222;
-      border-radius: 12px;
-      padding: 14px 24px;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--text);
-      transition: border-color 0.2s, transform 0.2s;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .btn-store:hover { border-color: var(--green); transform: translateY(-2px); }
+    .download-section { text-align: center; }
+    .download-card { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 80px 48px; margin-top: 64px; position: relative; overflow: hidden; }
+    .download-card::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: radial-gradient(circle, var(--accent-bg) 0%, transparent 70%); pointer-events: none; transition: background 0.4s; }
+    .download-title { font-size: clamp(28px, 4vw, 48px); font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .download-sub { color: var(--muted); font-size: 16px; margin-bottom: 40px; }
+    .download-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .btn-store { background: #161616; border: 1px solid #222; border-radius: 12px; padding: 14px 24px; display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); transition: border-color 0.2s, transform 0.2s; font-size: 14px; font-weight: 600; }
+    .btn-store:hover { border-color: var(--accent); transform: translateY(-2px); }
     .btn-store-icon { font-size: 24px; }
     .btn-store-label { font-size: 10px; color: var(--muted); display: block; text-align: left; }
     .btn-store-name { font-size: 15px; font-weight: 700; display: block; }
-
-    .download-note {
-      font-size: 12px;
-      color: var(--muted);
-      font-family: 'Space Mono', monospace;
-    }
+    .download-note { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
 
     /* ── DONATE ── */
-    .donate-card {
-      background: linear-gradient(135deg, rgba(0,255,148,0.04), rgba(0,255,148,0.01));
-      border: 1px solid rgba(0,255,148,0.15);
-      border-radius: 16px;
-      padding: 32px;
-      margin-top: 32px;
-      text-align: center;
-    }
-
-    .donate-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .donate-desc {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-
-    .donate-address {
-      background: #0d0d0d;
-      border: 1px solid #1a1a1a;
-      border-radius: 10px;
-      padding: 14px 20px;
-      font-family: 'Space Mono', monospace;
-      font-size: 11px;
-      color: var(--green);
-      word-break: break-all;
-      cursor: pointer;
-      transition: border-color 0.2s;
-    }
-
-    .donate-address:hover { border-color: var(--green); }
+    .donate-card { background: linear-gradient(135deg, var(--accent-bg), rgba(0,0,0,0)); border: 1px solid var(--accent-border); border-radius: 16px; padding: 32px; margin-top: 32px; text-align: center; transition: background 0.4s, border-color 0.4s; }
+    .donate-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .donate-desc { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+    .donate-address { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 10px; padding: 14px 20px; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent); word-break: break-all; cursor: pointer; transition: border-color 0.2s, color 0.4s; }
+    .donate-address:hover { border-color: var(--accent); }
+    .donate-copy-feedback { font-size: 11px; color: var(--accent); margin-top: 8px; height: 16px; transition: opacity 0.3s, color 0.4s; opacity: 0; font-family: 'Space Mono', monospace; }
     .donate-note { font-size: 11px; color: var(--muted); margin-top: 10px; font-family: 'Space Mono', monospace; }
 
     /* ── FOOTER ── */
-    footer {
-      position: relative;
-      z-index: 1;
-      border-top: 1px solid var(--border);
-      padding: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: gap;
-      gap: 24px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; max-width: 1100px; margin: 0 auto; flex-wrap: wrap; }
     .footer-left { display: flex; flex-direction: column; gap: 8px; }
     .footer-copy { font-size: 12px; color: var(--muted); font-family: 'Space Mono', monospace; }
-
-    .social-links {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-
-    .social-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      font-size: 16px;
-      transition: border-color 0.2s, transform 0.2s;
-      color: var(--muted);
-    }
-
-    .social-link:hover { border-color: var(--green); transform: translateY(-2px); color: var(--green); }
+    .footer-links { display: flex; gap: 16px; margin-top: 4px; }
+    .footer-links a { font-size: 11px; color: #333; text-decoration: none; font-family: 'Space Mono', monospace; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+    .social-links { display: flex; gap: 16px; align-items: center; }
+    .social-link { width: 40px; height: 40px; border-radius: 10px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 16px; transition: border-color 0.2s, transform 0.2s; color: var(--muted); }
+    .social-link:hover { border-color: var(--accent); transform: translateY(-2px); color: var(--accent); }
 
     /* ── ANIMATIONS ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.3; }
-    }
+    .divider { border: none; border-top: 1px solid var(--border); max-width: 1100px; margin: 0 auto; }
 
-    /* ── DIVIDER ── */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
       .nav-links { display: none; }
-      .stellar-section { padding: 40px 24px; gap: 32px; }
+      .stellar-section, .builder-section { padding: 40px 24px; gap: 32px; }
       footer { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+      .accent-switcher { bottom: 16px; right: 16px; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ACCENT SWITCHER -->
+  <div class="accent-switcher">
+    <div class="accent-label">Theme</div>
+    <div class="accent-dots">
+      <div class="accent-dot active" data-color="green"  title="Green"  onclick="setAccent('green',  this)"></div>
+      <div class="accent-dot"        data-color="blue"   title="Blue"   onclick="setAccent('blue',   this)"></div>
+      <div class="accent-dot"        data-color="purple" title="Purple" onclick="setAccent('purple', this)"></div>
+      <div class="accent-dot"        data-color="orange" title="Orange" onclick="setAccent('orange', this)"></div>
+      <div class="accent-dot"        data-color="white"  title="White"  onclick="setAccent('white',  this)"></div>
+    </div>
+  </div>
 
   <!-- NAV -->
   <nav>
@@ -784,6 +307,7 @@
       <li><a href="#how">How it works</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#compare">Compare</a></li>
+      <li><a href="#builder">Builder</a></li>
       <li><a href="#download">Download</a></li>
       <li><a href="#download" class="nav-cta">Get the App</a></li>
     </ul>
@@ -795,39 +319,28 @@
       <div class="hero-badge-dot"></div>
       TESTNET LIVE — MAINNET COMING SOON
     </div>
-
     <h1 class="hero-title">
       Message anyone.<br/>
       <span>Leave no trace.</span>
     </h1>
-
     <p class="hero-sub">
       No phone number. No email. No central server.
       Encrypted messaging built on the Stellar blockchain —
       your identity is your keys.
     </p>
-
     <div class="hero-pills">
-      <span class="pill pill-green">✦ End-to-end encrypted</span>
+      <span class="pill pill-accent">✦ End-to-end encrypted</span>
       <span class="pill">No KYC</span>
       <span class="pill">Stellar blockchain</span>
       <span class="pill">IPFS storage</span>
-      <span class="pill pill-green">@username search</span>
+      <span class="pill pill-accent">@username search</span>
       <span class="pill">BIP39 backup</span>
     </div>
-
     <div class="hero-actions">
-      <a href="#download" class="btn-primary">
-        ↓ Download APK
-      </a>
-      <a href="https://github.com/Mohamed9522/mesh-protocol" class="btn-secondary" target="_blank">
-        ★ View on GitHub
-      </a>
+      <a href="#download" class="btn-primary">↓ Download APK</a>
+      <a href="https://github.com/Mohamed9522/mesh-protocol" class="btn-secondary" target="_blank">★ View on GitHub</a>
     </div>
-
     <p class="hero-note">Android · Free · Open source at v0.0.1</p>
-
-    <!-- PHONE MOCKUP -->
     <div class="hero-visual">
       <div class="phone">
         <div class="phone-screen">
@@ -838,27 +351,22 @@
               <div class="phone-status">● encrypted</div>
             </div>
           </div>
-
           <div class="msg-wrap">
             <div class="msg msg-in">hey, found you by username. no address needed 👀</div>
             <div class="msg-time">12:01</div>
           </div>
-
           <div class="msg-wrap msg-wrap-out">
             <div class="msg msg-out">exactly. no phone number. no email. just @mesh</div>
             <div class="msg-time" style="text-align:right">12:01</div>
           </div>
-
           <div class="msg-wrap">
             <div class="msg msg-in">and the message is on-chain?</div>
             <div class="msg-time">12:02</div>
           </div>
-
           <div class="msg-wrap msg-wrap-out">
             <div class="msg msg-out">stellar tx + ipfs. nobody reads it but you.</div>
             <div class="msg-time" style="text-align:right">12:02</div>
           </div>
-
           <div class="phone-input">
             <span>type a message...</span>
             <div class="phone-send">↑</div>
@@ -875,7 +383,6 @@
     <div class="section-label">// HOW IT WORKS</div>
     <h2 class="section-title">Four steps.<br/>Zero compromise.</h2>
     <p class="section-sub">Every message travels through Stellar and IPFS — encrypted before it leaves your device. No server ever sees your plaintext.</p>
-
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
@@ -911,7 +418,6 @@
     <div class="section-label">// FEATURES</div>
     <h2 class="section-title">Built different.</h2>
     <p class="section-sub">Everything Signal and Telegram won't give you.</p>
-
     <div class="features">
       <div class="feature-card">
         <span class="feature-icon">👤</span>
@@ -926,7 +432,7 @@
       <div class="feature-card">
         <span class="feature-icon">💸</span>
         <div class="feature-title">Send XLM in chat</div>
-        <p class="feature-desc">Send Stellar (XLM) directly inside any conversation. Money and messages in one encrypted thread. Coming soon.</p>
+        <p class="feature-desc">Send Stellar (XLM) directly inside any conversation. Money and messages in one encrypted thread.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🌐</span>
@@ -953,7 +459,6 @@
     <div class="section-label">// COMPARISON</div>
     <h2 class="section-title">How we stack up.</h2>
     <p class="section-sub">MESH versus the alternatives — feature by feature.</p>
-
     <div class="compare-wrap">
       <table>
         <thead>
@@ -966,55 +471,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="highlight">Phone number required</td>
-            <td><span class="cross">✗ Yes</span></td>
-            <td><span class="cross">✗ Yes</span></td>
-            <td><span class="check">✓ No</span></td>
-            <td class="highlight"><span class="check">✓ No</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">E2E encrypted by default</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✗ Optional</span></td>
-            <td><span class="check">✓</span></td>
-            <td class="highlight"><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">Blockchain transport</td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td class="highlight"><span class="check">✓ Stellar</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">Decentralized storage</td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td class="highlight"><span class="check">✓ IPFS</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">Send crypto in chat</td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td class="highlight"><span class="check">✓ XLM</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">Seed phrase recovery</td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="check">✓</span></td>
-            <td class="highlight"><span class="check">✓ BIP39</span></td>
-          </tr>
-          <tr>
-            <td class="highlight">Username search</td>
-            <td><span class="cross">✗</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✗</span></td>
-            <td class="highlight"><span class="check">✓</span></td>
-          </tr>
+          <tr><td class="highlight">Phone number required</td><td><span class="cross">✗ Yes</span></td><td><span class="cross">✗ Yes</span></td><td><span class="check">✓ No</span></td><td class="highlight"><span class="check">✓ No</span></td></tr>
+          <tr><td class="highlight">E2E encrypted by default</td><td><span class="check">✓</span></td><td><span class="cross">✗ Optional</span></td><td><span class="check">✓</span></td><td class="highlight"><span class="check">✓</span></td></tr>
+          <tr><td class="highlight">Blockchain transport</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ Stellar</span></td></tr>
+          <tr><td class="highlight">Decentralized storage</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ IPFS</span></td></tr>
+          <tr><td class="highlight">Send crypto in chat</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓ XLM</span></td></tr>
+          <tr><td class="highlight">Seed phrase recovery</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td class="highlight"><span class="check">✓ BIP39</span></td></tr>
+          <tr><td class="highlight">Username search</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td class="highlight"><span class="check">✓</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -1029,25 +492,50 @@
       <div class="stellar-content">
         <div class="section-label">// BUILT ON STELLAR</div>
         <div class="stellar-title">Powered by the Stellar Network</div>
-        <p class="stellar-desc">
-          MESH uses the Stellar blockchain as its message transport layer.
-          Every message is a Stellar transaction — fast, cheap, and permanent.
-          We are proud to build on one of the most efficient and accessible
-          blockchain networks in the world.
-        </p>
+        <p class="stellar-desc">MESH uses the Stellar blockchain as its message transport layer. Every message is a Stellar transaction — fast, cheap, and permanent. We are proud to build on one of the most efficient and accessible blockchain networks in the world.</p>
         <div class="stellar-stats">
-          <div>
-            <div class="stellar-stat-val">0.00001</div>
-            <div class="stellar-stat-label">XLM per message</div>
-          </div>
-          <div>
-            <div class="stellar-stat-val">&lt; 5s</div>
-            <div class="stellar-stat-label">transaction finality</div>
-          </div>
-          <div>
-            <div class="stellar-stat-val">$0</div>
-            <div class="stellar-stat-label">MESH infrastructure fee</div>
-          </div>
+          <div><div class="stellar-stat-val">0.00001</div><div class="stellar-stat-label">XLM per message</div></div>
+          <div><div class="stellar-stat-val">&lt; 5s</div><div class="stellar-stat-label">transaction finality</div></div>
+          <div><div class="stellar-stat-val">$0</div><div class="stellar-stat-label">MESH infrastructure fee</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- BUILDER -->
+  <section id="builder">
+    <div class="section-label">// THE BUILDER</div>
+    <h2 class="section-title">One developer.<br/>One vision.</h2>
+    <p class="section-sub" style="margin-bottom: 48px;">MESH is an independent project — no VC funding, no team, no shortcuts.</p>
+    <div class="builder-section">
+      <div class="builder-avatar">🧑‍💻</div>
+      <div class="builder-content">
+        <div class="builder-tag">Solo Developer · Founder · CEO</div>
+        <div class="builder-name">Mohamed Abdellah</div>
+        <div class="builder-title">Lebanon → Egypt → Russia · Building MESH since 2026</div>
+        <p class="builder-bio">
+          Born in Lebanon, raised between Beirut and Alexandria, now based in Russia for the past five years.
+          I have a background in history and political science, and a self-taught path into software — HTML, CSS, frontend,
+          and now full-stack mobile development with React Native and the Stellar blockchain.
+          I built MESH because I believe private communication is a right, not a feature.
+          No team, no funding — just curiosity, stubbornness, and a lot of coffee.
+        </p>
+        <div class="builder-tags">
+          <span class="builder-skill">React Native</span>
+          <span class="builder-skill">Stellar / XLM</span>
+          <span class="builder-skill">IPFS / Pinata</span>
+          <span class="builder-skill">NaCl encryption</span>
+          <span class="builder-skill">Node.js / Fastify</span>
+          <span class="builder-skill">SQLite</span>
+          <span class="builder-skill">HTML5 / CSS3</span>
+          <span class="builder-skill">Self-taught</span>
+        </div>
+        <div class="builder-links">
+          <a href="https://github.com/Mohamed9522" class="builder-link" target="_blank">⌥ GitHub</a>
+          <a href="mailto:mohamed.abdellah.22@outlook.com" class="builder-link">✉ Contact</a>
+          <a href="https://tubecertificate.com" class="builder-link" target="_blank">🌐 TubeCertificate</a>
         </div>
       </div>
     </div>
@@ -1059,45 +547,32 @@
   <section id="download" class="download-section">
     <div class="section-label">// GET MESH</div>
     <h2 class="section-title">Ready to disappear<br/>from the grid?</h2>
-
     <div class="download-card">
       <div class="download-title">Download MESH</div>
       <p class="download-sub">Android APK — free, always. No account. No signup.</p>
-
       <div class="download-buttons">
         <a href="#" class="btn-store">
           <span class="btn-store-icon">⬇</span>
-          <span>
-            <span class="btn-store-label">Download for</span>
-            <span class="btn-store-name">Android APK</span>
-          </span>
+          <span><span class="btn-store-label">Download for</span><span class="btn-store-name">Android APK</span></span>
         </a>
         <a href="#" class="btn-store" style="opacity:0.4;cursor:not-allowed;">
           <span class="btn-store-icon">🍎</span>
-          <span>
-            <span class="btn-store-label">Coming soon</span>
-            <span class="btn-store-name">iOS App</span>
-          </span>
+          <span><span class="btn-store-label">Coming soon</span><span class="btn-store-name">iOS App</span></span>
         </a>
         <a href="#" class="btn-store" style="opacity:0.4;cursor:not-allowed;">
           <span class="btn-store-icon">🖥</span>
-          <span>
-            <span class="btn-store-label">Coming soon</span>
-            <span class="btn-store-name">Desktop</span>
-          </span>
+          <span><span class="btn-store-label">Coming soon</span><span class="btn-store-name">Desktop</span></span>
         </a>
       </div>
-
       <p class="download-note">v0.0.1 · Testnet · Android only for now</p>
 
       <!-- DONATE -->
       <div class="donate-card">
         <div class="donate-title">☕ Support MESH</div>
-        <p class="donate-desc">MESH is built by one developer and costs almost nothing to run. If it helps you — send a coffee in XLM.</p>
-        <div class="donate-address" onclick="navigator.clipboard.writeText(this.innerText)" title="Click to copy">
-          YOUR_STELLAR_DONATION_ADDRESS_HERE
-        </div>
-        <p class="donate-note">click to copy · XLM on Stellar mainnet</p>
+        <p class="donate-desc">Built by one developer. Costs almost nothing to run. If it helps you — send a coffee in XLM. No memo required.</p>
+        <div class="donate-address" id="donateAddr" onclick="copyDonate()" title="Click to copy">GBVSA4OAHASGMD7J2T2V22MDTPIK2ZCHXWDKRSAPNJQUSKDSQPHEEMBR</div>
+        <div class="donate-copy-feedback" id="donateFeedback">✓ Copied to clipboard</div>
+        <p class="donate-note">click to copy · XLM on Stellar mainnet · no memo needed</p>
       </div>
     </div>
   </section>
@@ -1110,16 +585,48 @@
         <span class="nav-logo-text">MESH Protocol</span>
       </a>
       <span class="footer-copy">© 2026 MESH Protocol · meshprotocol.ru · Built on Stellar</span>
+      <div class="footer-links">
+        <a href="/terms.html">Terms of Service</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
     </div>
-
     <div class="social-links">
-      <a href="https://github.com/Mohamed9522/mesh-protocol" class="social-link" target="_blank" title="GitHub">
-        ⌥
-      </a>
+      <a href="https://github.com/Mohamed9522/mesh-protocol" class="social-link" target="_blank" title="GitHub">⌥</a>
       <a href="#" class="social-link" title="X / Twitter" style="opacity:0.3;cursor:not-allowed;">𝕏</a>
       <a href="#" class="social-link" title="Telegram" style="opacity:0.3;cursor:not-allowed;">✈</a>
     </div>
   </footer>
+
+  <script>
+    // ── Accent switcher ──────────────────────────────────────────────────────
+    function setAccent(color, el) {
+      document.documentElement.setAttribute('data-accent', color);
+      localStorage.setItem('mesh-accent', color);
+      document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // Restore saved accent on load
+    (function() {
+      const saved = localStorage.getItem('mesh-accent') || 'green';
+      document.documentElement.setAttribute('data-accent', saved);
+      const dot = document.querySelector(`.accent-dot[data-color="${saved}"]`);
+      if (dot) {
+        document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+      }
+    })();
+
+    // ── Donate copy ──────────────────────────────────────────────────────────
+    function copyDonate() {
+      const addr = document.getElementById('donateAddr').innerText.trim();
+      navigator.clipboard.writeText(addr).then(() => {
+        const fb = document.getElementById('donateFeedback');
+        fb.style.opacity = '1';
+        setTimeout(() => { fb.style.opacity = '0'; }, 2000);
+      });
+    }
+  </script>
 
 </body>
 </html>

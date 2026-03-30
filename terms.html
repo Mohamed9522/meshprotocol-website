@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service — MESH Protocol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --accent:#00FF94; --black:#0A0A0A; --card:#111; --border:#1a1a1a; --text:#fff; --muted:#555; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; line-height: 1.7; }
+    body::after { content:''; position:fixed; inset:0; background-image: linear-gradient(rgba(0,255,148,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,148,0.02) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,10,0.8); border-bottom:1px solid var(--border); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-mark { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:18px; color:#000; }
+    .nav-logo-text { font-size:16px; font-weight:700; color:var(--text); letter-spacing:0.05em; }
+    .nav-back { color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; text-decoration:none; transition:color 0.2s; }
+    .nav-back:hover { color:var(--accent); }
+
+    .page { position:relative; z-index:1; max-width:740px; margin:0 auto; padding:140px 24px 100px; }
+
+    .page-tag { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:16px; }
+    .page-title { font-size:clamp(36px,5vw,64px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:16px; }
+    .page-meta { font-size:13px; color:var(--muted); font-family:'Space Mono',monospace; margin-bottom:64px; padding-bottom:32px; border-bottom:1px solid var(--border); }
+
+    h2 { font-size:20px; font-weight:700; margin-top:48px; margin-bottom:12px; color:var(--text); }
+    p { font-size:15px; color:#888; margin-bottom:16px; }
+    ul { margin-left:20px; margin-bottom:16px; }
+    li { font-size:15px; color:#888; margin-bottom:8px; line-height:1.7; }
+    strong { color:var(--text); }
+    .accent { color:var(--accent); }
+
+    .highlight-box { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px 28px; margin:32px 0; }
+    .highlight-box p { margin:0; }
+
+    footer-mini { display:block; text-align:center; padding:40px 24px; font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; border-top:1px solid var(--border); position:relative; z-index:1; }
+    footer-mini a { color:var(--muted); text-decoration:none; }
+    footer-mini a:hover { color:var(--accent); }
+
+    @media (max-width:768px) { nav { padding:16px 20px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">M</div>
+      <span class="nav-logo-text">MESH</span>
+    </a>
+    <a href="/" class="nav-back">← Back to home</a>
+  </nav>
+
+  <div class="page">
+    <div class="page-tag">// Legal</div>
+    <h1 class="page-title">Terms of<br/><span class="accent">Service</span></h1>
+    <p class="page-meta">Last updated: March 2026 &nbsp;·&nbsp; Effective immediately upon use</p>
+
+    <div class="highlight-box">
+      <p><strong>Plain English summary:</strong> MESH is a privacy tool. We don't store your messages, we don't know who you are, and we can't read your communications. By using MESH you accept these terms. If you use MESH for illegal activity, that's on you — not us.</p>
+    </div>
+
+    <h2>1. Acceptance of Terms</h2>
+    <p>By downloading, installing, or using MESH Protocol ("MESH", "the App", "the Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use MESH.</p>
+    <p>These terms apply to all users of the MESH mobile application, relay server, and website at meshprotocol.ru.</p>
+
+    <h2>2. What MESH Is</h2>
+    <p>MESH is an encrypted peer-to-peer messaging application built on the Stellar blockchain and IPFS (InterPlanetary File System). MESH provides:</p>
+    <ul>
+      <li>End-to-end encrypted messaging using NaCl box encryption</li>
+      <li>Blockchain-based message delivery via the Stellar network</li>
+      <li>Decentralized message storage via IPFS/Pinata</li>
+      <li>A username registry on our relay server for contact discovery</li>
+      <li>Optional XLM (Stellar Lumens) transfers between users</li>
+    </ul>
+
+    <h2>3. No Account Required — Your Keys Are Your Identity</h2>
+    <p>MESH does not require you to create an account with an email address, phone number, or any personal information. Your identity on MESH is defined by a cryptographic key pair derived from a 12-word BIP39 mnemonic phrase generated on your device.</p>
+    <p><strong>You are solely responsible for safeguarding your recovery phrase.</strong> If you lose it, you permanently lose access to your MESH account. We cannot recover it for you — we never have it.</p>
+
+    <h2>4. Acceptable Use</h2>
+    <p>You agree not to use MESH to:</p>
+    <ul>
+      <li>Transmit illegal content, including child sexual abuse material (CSAM)</li>
+      <li>Facilitate violence, terrorism, or criminal conspiracy</li>
+      <li>Harass, threaten, or abuse other users</li>
+      <li>Violate applicable laws in your jurisdiction</li>
+      <li>Attempt to compromise the security or availability of the MESH relay server</li>
+      <li>Spam or flood the relay with automated traffic</li>
+    </ul>
+    <p>MESH is a privacy tool, not an anonymity shield for illegal conduct. Users remain responsible for their own actions under the laws of their country.</p>
+
+    <h2>5. Blockchain Transactions</h2>
+    <p>Sending a message on MESH creates a transaction on the Stellar blockchain. These transactions are <strong>permanent and irreversible</strong>. The Stellar network charges a standard fee of 0.00001 XLM per transaction. MESH does not charge any additional fee.</p>
+    <p>You are responsible for maintaining sufficient XLM balance in your Stellar wallet to send messages. MESH is not responsible for failed transactions due to insufficient funds.</p>
+
+    <h2>6. Testnet Status</h2>
+    <p>MESH is currently operating on the <strong>Stellar Testnet</strong>. Testnet XLM has no real-world monetary value. Features, reliability, and data may change without notice during the testnet phase. Do not use MESH for critical or sensitive communications until mainnet launch.</p>
+
+    <h2>7. No Warranties</h2>
+    <p>MESH is provided <strong>"as is"</strong> without warranty of any kind. We do not guarantee that the service will be uninterrupted, error-free, or perfectly secure. Encryption is only as strong as your device security — if your device is compromised, your messages may be at risk.</p>
+
+    <h2>8. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by law, MESH Protocol and its sole developer (Mohamed Abdellah) shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the service, including but not limited to loss of XLM, loss of messages, or unauthorized access to your account.</p>
+
+    <h2>9. Privacy</h2>
+    <p>Your privacy is the entire point of MESH. Please read our <a href="/privacy.html" style="color:var(--accent)">Privacy Policy</a> to understand what little data we handle and how.</p>
+
+    <h2>10. Changes to These Terms</h2>
+    <p>We may update these terms as MESH evolves. Continued use of the app after changes constitutes acceptance of the updated terms. The "Last updated" date at the top of this page will always reflect the most recent revision.</p>
+
+    <h2>11. Contact</h2>
+    <p>Questions about these terms? Reach out at <a href="mailto:mohamed.abdellah.22@outlook.com" style="color:var(--accent)">mohamed.abdellah.22@outlook.com</a>.</p>
+  </div>
+
+  <footer-mini>
+    © 2026 MESH Protocol &nbsp;·&nbsp;
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+    meshprotocol.ru
+  </footer-mini>
+
+</body>
+</html>
