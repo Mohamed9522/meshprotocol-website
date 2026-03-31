@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talk to Us — MESH Protocol</title>
+  <meta name="description" content="Shape the future of MESH. Share ideas, report issues, or just tell us what you think." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --accent:#00FF94; --black:#0A0A0A; --card:#111; --border:#1a1a1a; --text:#fff; --muted:#555; }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--black); color:var(--text); font-family:'Syne',sans-serif; overflow-x:hidden; line-height:1.7; }
+    body::after { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(0,255,148,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,148,0.02) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,10,0.8); border-bottom:1px solid var(--border); }
+    .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .nav-logo-mark { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:18px; color:#000; }
+    .nav-logo-text { font-size:16px; font-weight:700; color:var(--text); letter-spacing:0.05em; }
+    .nav-back { color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; text-decoration:none; transition:color 0.2s; }
+    .nav-back:hover { color:var(--accent); }
+
+    .page { position:relative; z-index:1; max-width:780px; margin:0 auto; padding:140px 24px 100px; }
+    .page-tag { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:16px; }
+    .page-title { font-size:clamp(40px,6vw,72px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:20px; }
+    .page-title span { color:var(--accent); }
+    .page-intro { font-size:17px; color:#777; line-height:1.8; max-width:580px; margin-bottom:64px; }
+
+    /* ── CHANNELS ── */
+    .channels { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:64px; }
+    .channel-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; text-decoration:none; color:var(--text); transition:border-color 0.2s, transform 0.2s; display:flex; flex-direction:column; gap:12px; }
+    .channel-card:hover { border-color:rgba(0,255,148,0.3); transform:translateY(-4px); }
+    .channel-icon { width:44px; height:44px; border-radius:12px; background:rgba(0,255,148,0.08); border:1px solid rgba(0,255,148,0.15); display:flex; align-items:center; justify-content:center; }
+    .channel-title { font-size:16px; font-weight:700; }
+    .channel-desc { font-size:13px; color:var(--muted); line-height:1.6; }
+    .channel-action { font-size:12px; color:var(--accent); font-family:'Space Mono',monospace; margin-top:auto; }
+
+    /* ── FORM ── */
+    .form-section { margin-bottom:64px; }
+    .form-title { font-size:24px; font-weight:800; margin-bottom:8px; }
+    .form-sub { font-size:14px; color:var(--muted); margin-bottom:32px; }
+
+    .form-group { margin-bottom:20px; }
+    .form-label { display:block; font-size:12px; font-family:'Space Mono',monospace; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
+    .form-input, .form-textarea, .form-select {
+      width:100%; background:#0d0d0d; border:1px solid var(--border); border-radius:10px;
+      padding:14px 18px; font-size:15px; color:var(--text); font-family:'Syne',sans-serif;
+      transition:border-color 0.2s; outline:none; resize:none;
+    }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color:rgba(0,255,148,0.4); }
+    .form-textarea { height:140px; line-height:1.6; }
+    .form-select { appearance:none; cursor:pointer; }
+    .form-select option { background:#111; }
+
+    .type-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px; }
+    .type-pill { padding:8px 16px; border-radius:100px; border:1px solid var(--border); background:transparent; color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; cursor:pointer; transition:all 0.2s; }
+    .type-pill:hover { border-color:rgba(0,255,148,0.3); color:var(--text); }
+    .type-pill.selected { border-color:var(--accent); color:var(--accent); background:rgba(0,255,148,0.08); }
+
+    .form-submit { background:var(--accent); color:#000; padding:16px 36px; border-radius:12px; font-size:15px; font-weight:700; border:none; cursor:pointer; font-family:'Syne',sans-serif; letter-spacing:0.02em; transition:transform 0.2s, opacity 0.2s; display:inline-flex; align-items:center; gap:8px; }
+    .form-submit:hover { transform:translateY(-2px); opacity:0.9; }
+    .form-note { font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; margin-top:12px; }
+
+    .success-msg { display:none; background:rgba(0,255,148,0.08); border:1px solid rgba(0,255,148,0.2); border-radius:12px; padding:24px 28px; margin-top:20px; }
+    .success-msg.visible { display:block; }
+    .success-msg p { font-size:15px; color:var(--accent); margin:0; }
+
+    /* ── PARTNER SECTION ── */
+    .partner-section { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:48px; margin-bottom:64px; }
+    .partner-title { font-size:22px; font-weight:800; margin-bottom:12px; }
+    .partner-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:24px; max-width:560px; }
+    .partner-points { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:28px; }
+    .partner-points li { font-size:14px; color:#888; display:flex; align-items:center; gap:12px; }
+    .partner-points li::before { content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+    .partner-cta { display:inline-flex; align-items:center; gap:8px; background:transparent; border:1px solid rgba(0,255,148,0.3); color:var(--accent); padding:12px 24px; border-radius:10px; font-size:14px; font-weight:600; text-decoration:none; transition:background 0.2s, transform 0.2s; font-family:'Space Mono',monospace; }
+    .partner-cta:hover { background:rgba(0,255,148,0.08); transform:translateY(-2px); }
+
+    footer-mini { display:block; text-align:center; padding:40px 24px; font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; border-top:1px solid var(--border); position:relative; z-index:1; }
+    footer-mini a { color:var(--muted); text-decoration:none; }
+    footer-mini a:hover { color:var(--accent); }
+
+    @media (max-width:768px) { nav { padding:16px 20px; } .partner-section { padding:28px 20px; } }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-mark">M</div>
+      <span class="nav-logo-text">MESH</span>
+    </a>
+    <a href="/" class="nav-back">← Back to home</a>
+  </nav>
+
+  <div class="page">
+    <div class="page-tag">// Community</div>
+    <h1 class="page-title">Talk to<br/><span>us.</span></h1>
+    <p class="page-intro">MESH is built by one person — but it belongs to everyone who needs it. If you have an idea, a problem, a question, or just something to say — we genuinely want to hear it. This is not a support ticket system. This is a conversation.</p>
+
+    <!-- CHANNELS -->
+    <div class="channels">
+      <a href="mailto:contact@meshprotocol.ru" class="channel-card">
+        <div class="channel-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#00FF94" stroke-width="1.4"/><path d="M2 8 L11 13 L20 8" stroke="#00FF94" stroke-width="1.4" fill="none"/></svg>
+        </div>
+        <div class="channel-title">Direct email</div>
+        <div class="channel-desc">For anything specific — bugs, partnership discussions, press, or just a hello.</div>
+        <div class="channel-action">contact@meshprotocol.ru →</div>
+      </a>
+      <a href="mailto:support@meshprotocol.ru" class="channel-card">
+        <div class="channel-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#00FF94" stroke-width="1.4"/><path d="M11 7 Q11 11 11 11" stroke="#00FF94" stroke-width="1.4" stroke-linecap="round"/><circle cx="11" cy="14.5" r="1" fill="#00FF94"/></svg>
+        </div>
+        <div class="channel-title">Support</div>
+        <div class="channel-desc">App not working? Something broken? We'll look into it and get back to you.</div>
+        <div class="channel-action">support@meshprotocol.ru →</div>
+      </a>
+      <a href="https://github.com/Mohamed9522/mesh-protocol" target="_blank" class="channel-card">
+        <div class="channel-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2 C6 2 2 6.1 2 11.2 C2 15.3 4.6 18.8 8.2 20 C8.7 20.1 8.9 19.8 8.9 19.5 L8.9 17.8 C6.3 18.4 5.7 16.6 5.7 16.6 C5.3 15.6 4.6 15.3 4.6 15.3 C3.7 14.7 4.7 14.7 4.7 14.7 C5.7 14.8 6.2 15.7 6.2 15.7 C7.1 17.2 8.5 16.8 9 16.5 C9.1 15.9 9.4 15.5 9.6 15.3 C7.4 15 5 14.2 5 10.3 C5 9.2 5.4 8.3 6.1 7.7 C5.9 7.4 5.5 6.4 6.3 5 C6.3 5 7.1 4.7 8.9 6 C9.6 5.8 10.3 5.7 11 5.7 C11.7 5.7 12.4 5.8 13.1 6 C14.9 4.7 15.7 5 15.7 5 C16.4 6.4 16.1 7.4 16 7.7 C16.6 8.3 17 9.2 17 10.3 C17 14.2 14.6 15 12.4 15.3 C12.7 15.6 12.9 16.2 12.9 17.1 L12.9 19.5 C12.9 19.8 13.1 20.1 13.6 20 C17.4 18.8 20 15.3 20 11.2 C20 6.1 16 2 11 2 Z" fill="#00FF94"/></svg>
+        </div>
+        <div class="channel-title">GitHub</div>
+        <div class="channel-desc">Open issues, follow development, and see exactly what we're building and when.</div>
+        <div class="channel-action">github.com/Mohamed9522 →</div>
+      </a>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-section">
+      <div class="form-title">Send us a message</div>
+      <p class="form-sub">Tell us what's on your mind. Every message is read by a real person — Mohamed himself.</p>
+
+      <form id="meshForm" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">What kind of message is this?</label>
+          <div class="type-pills">
+            <button type="button" class="type-pill selected" onclick="selectType(this,'idea')">I have an idea</button>
+            <button type="button" class="type-pill" onclick="selectType(this,'bug')">Something is broken</button>
+            <button type="button" class="type-pill" onclick="selectType(this,'partner')">I want to collaborate</button>
+            <button type="button" class="type-pill" onclick="selectType(this,'question')">I have a question</button>
+            <button type="button" class="type-pill" onclick="selectType(this,'other')">Just saying hi</button>
+          </div>
+          <input type="hidden" id="msgType" value="idea"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your email (so we can reply)</label>
+          <input type="email" class="form-input" id="senderEmail" placeholder="your@email.com" required/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Your message</label>
+          <textarea class="form-textarea" id="msgBody" placeholder="Say anything. Seriously — no template needed." required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send it →</button>
+        <p class="form-note">We aim to reply within 48 hours. No automated responses.</p>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <p>Message received. Mohamed will read it personally and reply to your email. Thank you for being part of MESH.</p>
+      </div>
+    </div>
+
+    <!-- PARTNER SECTION -->
+    <div class="partner-section">
+      <div class="partner-title">Interested in partnering?</div>
+      <p class="partner-desc">MESH is at an early stage and open to serious collaborations. If you represent an organization, fund, developer community, or privacy-focused initiative — let's talk. No pitch decks required. Just an honest conversation.</p>
+      <ul class="partner-points">
+        <li>Infrastructure or hosting partnerships</li>
+        <li>Stellar ecosystem collaborations</li>
+        <li>Privacy advocacy organizations</li>
+        <li>Developer communities and open source contributors</li>
+        <li>Early investment discussions (equity or grant-based)</li>
+      </ul>
+      <a href="mailto:contact@meshprotocol.ru" class="partner-cta">contact@meshprotocol.ru →</a>
+    </div>
+
+  </div>
+
+  <footer-mini>
+    © 2026 MESH Protocol &nbsp;·&nbsp;
+    <a href="/">Home</a> &nbsp;·&nbsp;
+    <a href="/terms.html">Terms</a> &nbsp;·&nbsp;
+    <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp;
+    contact@meshprotocol.ru
+  </footer-mini>
+
+  <script>
+    function selectType(el, val) {
+      document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('msgType').value = val;
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const type    = document.getElementById('msgType').value;
+      const email   = document.getElementById('senderEmail').value;
+      const body    = document.getElementById('msgBody').value;
+      const subject = encodeURIComponent(`MESH Community [${type}] from ${email}`);
+      const mailBody = encodeURIComponent(`Type: ${type}\nFrom: ${email}\n\n${body}`);
+      window.location.href = `mailto:contact@meshprotocol.ru?subject=${subject}&body=${mailBody}`;
+      setTimeout(() => {
+        document.getElementById('successMsg').classList.add('visible');
+        document.getElementById('meshForm').reset();
+        document.querySelectorAll('.type-pill').forEach((p,i) => p.classList.toggle('selected', i===0));
+      }, 500);
+    }
+  </script>
+
+</body>
+</html>
