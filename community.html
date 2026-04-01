@@ -28,7 +28,6 @@
     .page-title span { color:var(--accent); }
     .page-intro { font-size:17px; color:#777; line-height:1.8; max-width:580px; margin-bottom:64px; }
 
-    /* ── CHANNELS ── */
     .channels { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:64px; }
     .channel-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; text-decoration:none; color:var(--text); transition:border-color 0.2s, transform 0.2s; display:flex; flex-direction:column; gap:12px; }
     .channel-card:hover { border-color:rgba(0,255,148,0.3); transform:translateY(-4px); }
@@ -37,18 +36,12 @@
     .channel-desc { font-size:13px; color:var(--muted); line-height:1.6; }
     .channel-action { font-size:12px; color:var(--accent); font-family:'Space Mono',monospace; margin-top:auto; }
 
-    /* ── FORM ── */
     .form-section { margin-bottom:64px; }
     .form-title { font-size:24px; font-weight:800; margin-bottom:8px; }
     .form-sub { font-size:14px; color:var(--muted); margin-bottom:32px; }
-
     .form-group { margin-bottom:20px; }
     .form-label { display:block; font-size:12px; font-family:'Space Mono',monospace; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
-    .form-input, .form-textarea, .form-select {
-      width:100%; background:#0d0d0d; border:1px solid var(--border); border-radius:10px;
-      padding:14px 18px; font-size:15px; color:var(--text); font-family:'Syne',sans-serif;
-      transition:border-color 0.2s; outline:none; resize:none;
-    }
+    .form-input, .form-textarea, .form-select { width:100%; background:#0d0d0d; border:1px solid var(--border); border-radius:10px; padding:14px 18px; font-size:15px; color:var(--text); font-family:'Syne',sans-serif; transition:border-color 0.2s; outline:none; resize:none; }
     .form-input:focus, .form-textarea:focus, .form-select:focus { border-color:rgba(0,255,148,0.4); }
     .form-textarea { height:140px; line-height:1.6; }
     .form-select { appearance:none; cursor:pointer; }
@@ -67,7 +60,6 @@
     .success-msg.visible { display:block; }
     .success-msg p { font-size:15px; color:var(--accent); margin:0; }
 
-    /* ── PARTNER SECTION ── */
     .partner-section { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:48px; margin-bottom:64px; }
     .partner-title { font-size:22px; font-weight:800; margin-bottom:12px; }
     .partner-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:24px; max-width:560px; }
@@ -97,7 +89,7 @@
   <div class="page">
     <div class="page-tag">// Community</div>
     <h1 class="page-title">Talk to<br/><span>us.</span></h1>
-    <p class="page-intro">MESH is built by one person — but it belongs to everyone who needs it. If you have an idea, a problem, a question, or just something to say — we genuinely want to hear it. This is not a support ticket system. This is a conversation.</p>
+    <p class="page-intro">MESH is built by one person — but it belongs to everyone who needs it. Private communication is a right, not a feature. If you believe in that, you're already part of this. If you have an idea, a problem, a question, or just something to say — we genuinely want to hear it. This is not a support ticket system. This is a conversation.</p>
 
     <!-- CHANNELS -->
     <div class="channels">
@@ -197,10 +189,10 @@
 
     function handleSubmit(e) {
       e.preventDefault();
-      const type    = document.getElementById('msgType').value;
-      const email   = document.getElementById('senderEmail').value;
-      const body    = document.getElementById('msgBody').value;
-      const subject = encodeURIComponent(`MESH Community [${type}] from ${email}`);
+      const type     = document.getElementById('msgType').value;
+      const email    = document.getElementById('senderEmail').value;
+      const body     = document.getElementById('msgBody').value;
+      const subject  = encodeURIComponent(`MESH Community [${type}] from ${email}`);
       const mailBody = encodeURIComponent(`Type: ${type}\nFrom: ${email}\n\n${body}`);
       window.location.href = `mailto:contact@meshprotocol.ru?subject=${subject}&body=${mailBody}`;
       setTimeout(() => {

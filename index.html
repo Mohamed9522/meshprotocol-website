@@ -78,7 +78,7 @@
     .phone { width:260px; height:520px; background:#111; border-radius:36px; border:2px solid #222; margin:0 auto; position:relative; overflow:hidden; box-shadow:0 0 80px var(--accent-bg), 0 40px 80px rgba(0,0,0,0.8); transition:box-shadow 0.4s; }
     .phone-screen { padding:20px 16px; height:100%; display:flex; flex-direction:column; gap:10px; }
     .phone-header { display:flex; align-items:center; gap:10px; padding-bottom:12px; border-bottom:1px solid #1a1a1a; }
-    .phone-avatar { width:32px; height:32px; border-radius:10px; background:#1A3D2B; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--accent); transition:color 0.4s; }
+    .phone-avatar { width:32px; height:32px; border-radius:10px; background:#1A3D2B; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:var(--accent); transition:color 0.4s; font-family:'Space Mono',monospace; }
     .phone-contact { font-size:13px; font-weight:600; }
     .phone-status { font-size:10px; color:var(--accent); font-family:'Space Mono',monospace; transition:color 0.4s; }
     .msg { max-width:75%; padding:8px 12px; border-radius:12px; font-size:11px; line-height:1.5; font-family:'Space Mono',monospace; }
@@ -101,6 +101,55 @@
     .step-icon { width:40px; height:40px; margin-bottom:16px; display:block; }
     .step-title { font-size:17px; font-weight:700; margin-bottom:10px; }
     .step-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+
+    /* ── PHONE SLIDER ── */
+    .slider-section { position:relative; z-index:1; padding:100px 24px; max-width:1100px; margin:0 auto; }
+    .slider-wrap { margin-top:64px; display:flex; align-items:center; gap:48px; flex-wrap:wrap; justify-content:center; }
+    .slider-phones { position:relative; display:flex; align-items:center; justify-content:center; min-height:560px; }
+    .slider-phone { width:240px; height:480px; background:#111; border-radius:32px; border:2px solid #222; position:absolute; overflow:hidden; box-shadow:0 0 60px var(--accent-bg), 0 30px 60px rgba(0,0,0,0.8); transition:all 0.5s cubic-bezier(0.4,0,0.2,1); }
+    .slider-phone.active { transform:translateX(0) scale(1); opacity:1; z-index:3; position:relative; }
+    .slider-phone.prev  { transform:translateX(-180px) scale(0.88); opacity:0.4; z-index:2; }
+    .slider-phone.next  { transform:translateX(180px) scale(0.88); opacity:0.4; z-index:2; }
+    .slider-phone.hidden { transform:translateX(0) scale(0.75); opacity:0; z-index:1; }
+    .s-screen { padding:18px 14px; height:100%; display:flex; flex-direction:column; gap:8px; }
+    .s-header { display:flex; align-items:center; gap:8px; padding-bottom:10px; border-bottom:1px solid #1a1a1a; margin-bottom:4px; }
+    .s-avatar { width:28px; height:28px; border-radius:8px; background:#1A3D2B; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--accent); font-family:'Space Mono',monospace; flex-shrink:0; }
+    .s-name { font-size:12px; font-weight:700; }
+    .s-status { font-size:9px; color:var(--accent); font-family:'Space Mono',monospace; }
+    .s-msg { max-width:78%; padding:7px 10px; border-radius:10px; font-size:10px; line-height:1.5; font-family:'Space Mono',monospace; }
+    .s-msg-in { background:#1a1a1a; color:#bbb; align-self:flex-start; border-bottom-left-radius:3px; }
+    .s-msg-out { background:#0d2b1a; color:var(--accent); align-self:flex-end; border-bottom-right-radius:3px; }
+    .s-row { display:flex; flex-direction:column; }
+    .s-row-out { align-items:flex-end; }
+    .s-time { font-size:8px; color:#333; margin-top:2px; font-family:'Space Mono',monospace; }
+    .s-input { margin-top:auto; background:#1a1a1a; border-radius:18px; padding:9px 12px; font-size:9px; color:#333; font-family:'Space Mono',monospace; display:flex; align-items:center; justify-content:space-between; }
+    .s-send { width:20px; height:20px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:9px; color:#000; font-weight:700; flex-shrink:0; }
+    .s-divider { border:none; border-top:1px solid #1a1a1a; margin:4px 0; }
+    .s-list-item { display:flex; align-items:center; gap:8px; padding:6px 0; }
+    .s-list-avatar { width:26px; height:26px; border-radius:8px; background:#1a1a1a; display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--accent); font-family:'Space Mono',monospace; font-weight:700; flex-shrink:0; }
+    .s-list-name { font-size:11px; font-weight:700; }
+    .s-list-preview { font-size:9px; color:#444; font-family:'Space Mono',monospace; }
+    .s-list-time { font-size:8px; color:#333; margin-left:auto; font-family:'Space Mono',monospace; }
+    .s-badge { display:inline-block; background:var(--accent); color:#000; font-size:8px; font-weight:700; border-radius:100px; padding:2px 7px; font-family:'Space Mono',monospace; }
+    .s-title-bar { font-size:13px; font-weight:700; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #1a1a1a; }
+    .s-field { background:#0d0d0d; border:1px solid #1a1a1a; border-radius:8px; padding:8px 10px; font-size:9px; color:#555; font-family:'Space Mono',monospace; margin-bottom:6px; }
+    .s-field-label { font-size:8px; color:#333; font-family:'Space Mono',monospace; margin-bottom:3px; text-transform:uppercase; letter-spacing:0.08em; }
+    .s-btn { background:var(--accent); color:#000; border-radius:8px; padding:8px; font-size:9px; font-weight:700; font-family:'Space Mono',monospace; text-align:center; margin-top:4px; }
+    .s-pay-row { display:flex; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid #111; }
+    .s-pay-label { font-size:9px; color:#555; font-family:'Space Mono',monospace; }
+    .s-pay-val { font-size:10px; color:var(--accent); font-family:'Space Mono',monospace; font-weight:700; }
+    .s-search { background:#0d0d0d; border:1px solid #1a1a1a; border-radius:10px; padding:7px 10px; font-size:9px; color:#333; font-family:'Space Mono',monospace; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+
+    .slider-info { flex:1; min-width:260px; max-width:380px; }
+    .slide-counter { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:16px; }
+    .slide-title { font-size:26px; font-weight:800; margin-bottom:10px; letter-spacing:-0.02em; }
+    .slide-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:32px; }
+    .slider-dots { display:flex; gap:8px; margin-bottom:24px; }
+    .slider-dot { width:8px; height:8px; border-radius:50%; background:#222; cursor:pointer; transition:background 0.3s, transform 0.2s; border:none; }
+    .slider-dot.active { background:var(--accent); transform:scale(1.3); }
+    .slider-nav { display:flex; gap:12px; }
+    .slider-btn { width:44px; height:44px; border-radius:12px; background:var(--card); border:1px solid var(--border); color:var(--text); font-size:18px; cursor:pointer; transition:border-color 0.2s, transform 0.2s; display:flex; align-items:center; justify-content:center; }
+    .slider-btn:hover { border-color:var(--accent); transform:translateY(-2px); }
 
     .features { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:64px; }
     .feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:border-color 0.2s, transform 0.2s; }
@@ -125,9 +174,10 @@
     .roadmap { margin-top:64px; display:flex; flex-direction:column; gap:2px; border-radius:20px; overflow:hidden; background:var(--border); }
     .roadmap-item { background:var(--card); padding:32px 40px; display:flex; align-items:flex-start; gap:32px; }
     .roadmap-left { min-width:160px; }
+    .roadmap-phase { font-family:'Space Mono',monospace; font-size:10px; color:#333; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:4px; }
     .roadmap-status { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:8px; }
-    .roadmap-status.live { color:var(--accent); }
-    .roadmap-status.next { color:#7B61FF; }
+    .roadmap-status.live   { color:var(--accent); }
+    .roadmap-status.active { color:#7B61FF; }
     .roadmap-status.future { color:#333; }
     .roadmap-milestone { font-size:22px; font-weight:800; }
     .roadmap-funding { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); margin-top:6px; }
@@ -145,11 +195,13 @@
     .stellar-stat-val { font-family:'Space Mono',monospace; font-size:22px; font-weight:700; color:var(--stellar); }
     .stellar-stat-label { font-size:12px; color:var(--muted); margin-top:2px; }
 
+    /* ── BUILDER ── */
     .builder-section { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:64px; display:flex; align-items:flex-start; gap:48px; flex-wrap:wrap; }
-    .builder-avatar { width:100px; height:100px; border-radius:24px; background:linear-gradient(135deg,var(--accent-bg),#1a1a1a); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:42px; flex-shrink:0; transition:background 0.4s, border-color 0.4s; }
+    .builder-avatar { width:100px; height:100px; border-radius:24px; background:linear-gradient(135deg,#0d1f17,#111); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:border-color 0.4s; }
+    .builder-avatar svg { width:48px; height:48px; }
     .builder-tag { display:inline-block; font-family:'Space Mono',monospace; font-size:10px; color:var(--accent); letter-spacing:0.12em; text-transform:uppercase; background:var(--accent-bg); border:1px solid var(--accent-border); border-radius:100px; padding:4px 12px; margin-bottom:16px; transition:color 0.4s, background 0.4s, border-color 0.4s; }
     .builder-name { font-size:32px; font-weight:800; margin-bottom:8px; letter-spacing:-0.02em; }
-    .builder-title { font-size:14px; color:var(--muted); margin-bottom:20px; font-family:'Space Mono',monospace; }
+    .builder-title { font-size:13px; color:var(--muted); margin-bottom:20px; font-family:'Space Mono',monospace; }
     .builder-bio { font-size:15px; color:#888; line-height:1.8; margin-bottom:24px; max-width:580px; }
     .builder-tags { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
     .builder-skill { background:#161616; border:1px solid #222; border-radius:8px; padding:6px 12px; font-size:12px; color:#666; font-family:'Space Mono',monospace; }
@@ -200,6 +252,8 @@
       .accent-switcher { bottom:16px; right:16px; }
       .roadmap-item { flex-direction:column; gap:16px; padding:24px; }
       .roadmap-left { min-width:unset; }
+      .slider-wrap { flex-direction:column; }
+      .slider-phones { width:100%; }
     }
   </style>
 </head>
@@ -223,6 +277,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#how">How it works</a></li>
+      <li><a href="#screens">App</a></li>
       <li><a href="#features">Features</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#builder">Builder</a></li>
@@ -231,6 +286,7 @@
     </ul>
   </nav>
 
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">
       <div class="hero-badge-dot"></div>
@@ -291,6 +347,7 @@
 
   <hr class="divider"/>
 
+  <!-- HOW IT WORKS -->
   <section id="how">
     <div class="section-label">// HOW IT WORKS</div>
     <h2 class="section-title">Four steps.<br/>Zero compromise.</h2>
@@ -325,6 +382,203 @@
 
   <hr class="divider"/>
 
+  <!-- APP SCREENS SLIDER -->
+  <section id="screens" class="slider-section">
+    <div class="section-label">// THE APP</div>
+    <h2 class="section-title">See it in action.</h2>
+    <p class="section-sub">Every screen you see is live and working on Stellar testnet right now.</p>
+
+    <div class="slider-wrap">
+      <!-- PHONES -->
+      <div class="slider-phones" id="sliderPhones">
+
+        <!-- Screen 0: Chat list -->
+        <div class="slider-phone active" data-index="0">
+          <div class="s-screen">
+            <div class="s-title-bar">Messages</div>
+            <div class="s-search">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="4" cy="4" r="3" stroke="#444" stroke-width="1"/><line x1="6.5" y1="6.5" x2="9" y2="9" stroke="#444" stroke-width="1" stroke-linecap="round"/></svg>
+              search @username...
+            </div>
+            <div class="s-list-item">
+              <div class="s-list-avatar">Z</div>
+              <div style="flex:1">
+                <div class="s-list-name">@zuzu</div>
+                <div class="s-list-preview">stellar tx + ipfs. nobody reads...</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+                <div class="s-list-time">12:02</div>
+                <div class="s-badge">2</div>
+              </div>
+            </div>
+            <hr class="s-divider"/>
+            <div class="s-list-item">
+              <div class="s-list-avatar">A</div>
+              <div style="flex:1">
+                <div class="s-list-name">@amir</div>
+                <div class="s-list-preview">sent 0.5 XLM</div>
+              </div>
+              <div class="s-list-time">yesterday</div>
+            </div>
+            <hr class="s-divider"/>
+            <div class="s-list-item">
+              <div class="s-list-avatar">R</div>
+              <div style="flex:1">
+                <div class="s-list-name">@raf</div>
+                <div class="s-list-preview">message request</div>
+              </div>
+              <div class="s-list-time">Mon</div>
+            </div>
+            <hr class="s-divider"/>
+            <div class="s-list-item" style="opacity:0.3">
+              <div class="s-list-avatar">N</div>
+              <div style="flex:1">
+                <div class="s-list-name">@nova</div>
+                <div class="s-list-preview">encrypted · delivered</div>
+              </div>
+              <div class="s-list-time">Sun</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 1: Chat view -->
+        <div class="slider-phone next" data-index="1">
+          <div class="s-screen">
+            <div class="s-header">
+              <div class="s-avatar">Z</div>
+              <div>
+                <div class="s-name">@zuzu</div>
+                <div class="s-status">● encrypted · on-chain</div>
+              </div>
+            </div>
+            <div class="s-row">
+              <div class="s-msg s-msg-in">no phone. no email. just a key</div>
+              <div class="s-time">11:58</div>
+            </div>
+            <div class="s-row s-row-out">
+              <div class="s-msg s-msg-out">exactly. that's the whole point</div>
+              <div class="s-time" style="text-align:right">11:59</div>
+            </div>
+            <div class="s-row">
+              <div class="s-msg s-msg-in">and messages go via stellar?</div>
+              <div class="s-time">12:00</div>
+            </div>
+            <div class="s-row s-row-out">
+              <div class="s-msg s-msg-out">stellar + ipfs. relay never sees plaintext</div>
+              <div class="s-time" style="text-align:right">12:01</div>
+            </div>
+            <div class="s-row">
+              <div class="s-msg s-msg-in">cost?</div>
+              <div class="s-time">12:01</div>
+            </div>
+            <div class="s-row s-row-out">
+              <div class="s-msg s-msg-out">0.00001 xlm. less than a cent per thousand msgs</div>
+              <div class="s-time" style="text-align:right">12:02</div>
+            </div>
+            <div class="s-input">
+              <span>type a message...</span>
+              <div class="s-send">↑</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Screen 2: Send XLM -->
+        <div class="slider-phone hidden" data-index="2">
+          <div class="s-screen">
+            <div class="s-title-bar">Send XLM · @zuzu</div>
+            <div class="s-field-label">Amount</div>
+            <div class="s-field" style="color:var(--accent);font-size:14px;font-weight:700">0.50 XLM</div>
+            <div class="s-field-label">Memo (optional)</div>
+            <div class="s-field">coffee ☕</div>
+            <hr class="s-divider" style="margin:10px 0"/>
+            <div class="s-pay-row">
+              <div class="s-pay-label">To</div>
+              <div class="s-pay-val">@zuzu</div>
+            </div>
+            <div class="s-pay-row">
+              <div class="s-pay-label">Network fee</div>
+              <div class="s-pay-val">0.00001 XLM</div>
+            </div>
+            <div class="s-pay-row">
+              <div class="s-pay-label">Total</div>
+              <div class="s-pay-val">0.50001 XLM</div>
+            </div>
+            <div class="s-btn" style="margin-top:12px">Confirm &amp; Send</div>
+            <div style="font-size:8px;color:#333;font-family:'Space Mono',monospace;text-align:center;margin-top:8px">Stellar mainnet · irreversible</div>
+          </div>
+        </div>
+
+        <!-- Screen 3: Username search -->
+        <div class="slider-phone hidden" data-index="3">
+          <div class="s-screen">
+            <div class="s-title-bar">Find a contact</div>
+            <div class="s-search" style="border-color:rgba(0,255,148,0.3);color:var(--accent)">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><circle cx="4" cy="4" r="3" stroke="var(--accent)" stroke-width="1"/><line x1="6.5" y1="6.5" x2="9" y2="9" stroke="var(--accent)" stroke-width="1" stroke-linecap="round"/></svg>
+              @zuzu
+            </div>
+            <div style="background:#0d1f17;border:1px solid rgba(0,255,148,0.15);border-radius:10px;padding:12px;margin-top:4px">
+              <div class="s-list-item" style="padding:0">
+                <div class="s-list-avatar" style="background:#0d1f17;border:1px solid rgba(0,255,148,0.2)">Z</div>
+                <div style="flex:1">
+                  <div class="s-list-name" style="color:var(--accent)">@zuzu</div>
+                  <div class="s-list-preview" style="color:#555">G3XY...7KLM · verified on-chain</div>
+                </div>
+              </div>
+              <div class="s-btn" style="margin-top:10px;font-size:8px">Send Message Request</div>
+            </div>
+            <div style="font-size:9px;color:#333;font-family:'Space Mono',monospace;margin-top:16px;line-height:1.6">No phone number.<br/>No email.<br/>Just a username — discoverable<br/>because they chose to be.</div>
+          </div>
+        </div>
+
+        <!-- Screen 4: Settings / Backup -->
+        <div class="slider-phone hidden" data-index="4">
+          <div class="s-screen">
+            <div class="s-title-bar">Settings</div>
+            <div style="font-size:9px;color:#555;font-family:'Space Mono',monospace;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em">Account</div>
+            <div class="s-field" style="color:#aaa">@yourusername</div>
+            <div style="font-size:9px;color:#555;font-family:'Space Mono',monospace;margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.08em">Recovery Phrase</div>
+            <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:10px;font-size:8px;color:#333;font-family:'Space Mono',monospace;line-height:1.8">
+              word · word · word · word<br/>
+              word · word · word · word<br/>
+              word · word · word · word<br/>
+              <span style="color:rgba(0,255,148,0.4);font-size:7px">tap to reveal · keep this safe</span>
+            </div>
+            <div style="font-size:9px;color:#555;font-family:'Space Mono',monospace;margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.08em">Relay Status</div>
+            <div style="display:flex;align-items:center;gap:6px;padding:6px 0">
+              <div style="width:6px;height:6px;border-radius:50%;background:var(--accent)"></div>
+              <div style="font-size:9px;color:var(--accent);font-family:'Space Mono',monospace">relay.meshprotocol.ru · connected</div>
+            </div>
+            <div style="margin-top:auto">
+              <div style="font-size:8px;color:#222;font-family:'Space Mono',monospace;text-align:center;padding-top:8px;border-top:1px solid #111">MESH v0.0.1 · Stellar testnet</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SLIDE INFO -->
+      <div class="slider-info">
+        <div class="slide-counter" id="slideCounter">01 / 05</div>
+        <div class="slide-title" id="slideTitle">Your conversations</div>
+        <div class="slide-desc" id="slideDesc">All your chats in one place. Find anyone by @username — no phone number, no address book, no data shared with any server.</div>
+        <div class="slider-dots" id="sliderDots">
+          <button class="slider-dot active" onclick="goToSlide(0)"></button>
+          <button class="slider-dot" onclick="goToSlide(1)"></button>
+          <button class="slider-dot" onclick="goToSlide(2)"></button>
+          <button class="slider-dot" onclick="goToSlide(3)"></button>
+          <button class="slider-dot" onclick="goToSlide(4)"></button>
+        </div>
+        <div class="slider-nav">
+          <button class="slider-btn" onclick="prevSlide()">←</button>
+          <button class="slider-btn" onclick="nextSlide()">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider"/>
+
+  <!-- FEATURES -->
   <section id="features">
     <div class="section-label">// FEATURES</div>
     <h2 class="section-title">Built different.</h2>
@@ -365,71 +619,90 @@
 
   <hr class="divider"/>
 
+  <!-- ROADMAP -->
   <section id="roadmap">
     <div class="section-label">// ROADMAP</div>
     <h2 class="section-title">Where we are.<br/>Where we're going.</h2>
-    <p class="section-sub" style="margin-bottom:64px;">MESH is built in public, one milestone at a time. Here is exactly where we stand.</p>
+    <p class="section-sub" style="margin-bottom:64px;">Five phases. Built in public. Every milestone earned before the next one starts.</p>
     <div class="roadmap">
 
       <div class="roadmap-item">
         <div class="roadmap-left">
+          <div class="roadmap-phase">Phase 0</div>
           <div class="roadmap-status live">● Live now</div>
-          <div class="roadmap-milestone">Testnet</div>
+          <div class="roadmap-milestone">Proof</div>
           <div class="roadmap-funding">Self-funded</div>
         </div>
         <ul class="roadmap-features">
-          <li class="done">End-to-end encrypted text messaging</li>
+          <li class="done">End-to-end encrypted text messaging (NaCl)</li>
           <li class="done">Username registry — find anyone by @handle</li>
           <li class="done">Message requests — you control who reaches you</li>
           <li class="done">Send XLM directly inside any chat</li>
           <li class="done">BIP39 seed phrase — restore on any device</li>
-          <li class="done">Chat wallpaper and accent color</li>
-          <li class="done">Android APK — free download</li>
+          <li class="done">Android APK — live on Stellar testnet</li>
         </ul>
       </div>
 
       <div class="roadmap-item">
         <div class="roadmap-left">
-          <div class="roadmap-status next">◎ Next</div>
-          <div class="roadmap-milestone">Mainnet</div>
-          <div class="roadmap-funding">Self-funded</div>
+          <div class="roadmap-phase">Phase 1</div>
+          <div class="roadmap-status active">◎ In progress</div>
+          <div class="roadmap-milestone">Foundation</div>
+          <div class="roadmap-funding">SCF Grant</div>
         </div>
         <ul class="roadmap-features">
-          <li>Move to Stellar mainnet</li>
+          <li>Stellar mainnet deployment</li>
           <li>Profile pictures via IPFS</li>
-          <li>Auto-update checker</li>
-          <li>Public APK with stable download link</li>
-          <li>GitHub repo public at v0.0.1</li>
+          <li>Security audit — encryption &amp; key management</li>
+          <li>Public GitHub repo at v0.0.1</li>
+          <li>Relay infrastructure — 2 additional nodes, 2 regions</li>
         </ul>
       </div>
 
       <div class="roadmap-item">
         <div class="roadmap-left">
-          <div class="roadmap-status future">○ Milestone 3</div>
-          <div class="roadmap-milestone">Growth</div>
-          <div class="roadmap-funding">Seeking $15,000</div>
+          <div class="roadmap-phase">Phase 2</div>
+          <div class="roadmap-status future">○ Planned</div>
+          <div class="roadmap-milestone">Signal</div>
+          <div class="roadmap-funding">$30–50k</div>
         </div>
         <ul class="roadmap-features">
           <li>Voice notes</li>
           <li>Image and file sharing</li>
           <li>Push notifications</li>
           <li>Relay federation — 3 continents, no single point of failure</li>
-          <li>10,000 user capacity confirmed</li>
+          <li>10,000 user capacity</li>
         </ul>
       </div>
 
       <div class="roadmap-item">
         <div class="roadmap-left">
-          <div class="roadmap-status future">○ Milestone 4</div>
-          <div class="roadmap-milestone">Ecosystem</div>
-          <div class="roadmap-funding">Seeking $50,000</div>
+          <div class="roadmap-phase">Phase 3</div>
+          <div class="roadmap-status future">○ Planned</div>
+          <div class="roadmap-milestone">Reach</div>
+          <div class="roadmap-funding">$100–200k</div>
         </div>
         <ul class="roadmap-features">
           <li>iOS app</li>
           <li>Windows and macOS desktop</li>
-          <li>Video calls via WebRTC</li>
-          <li>Open developer API</li>
           <li>Group chats</li>
+          <li>Open developer API</li>
+          <li>Community relay nodes — operators earn XLM directly</li>
+        </ul>
+      </div>
+
+      <div class="roadmap-item">
+        <div class="roadmap-left">
+          <div class="roadmap-phase">Phase 4</div>
+          <div class="roadmap-status future">○ Long game</div>
+          <div class="roadmap-milestone">Network</div>
+          <div class="roadmap-funding">Series A</div>
+        </div>
+        <ul class="roadmap-features">
+          <li>Video calls via WebRTC</li>
+          <li>Fully decentralized relay network — community owned</li>
+          <li>Stellar smart contract governance for group features</li>
+          <li>Regional expansion — Africa, Middle East, Southeast Asia</li>
         </ul>
       </div>
 
@@ -438,6 +711,7 @@
 
   <hr class="divider"/>
 
+  <!-- STELLAR -->
   <section id="stellar">
     <div class="stellar-section">
       <div class="stellar-logo">✦</div>
@@ -456,17 +730,24 @@
 
   <hr class="divider"/>
 
+  <!-- BUILDER -->
   <section id="builder">
     <div class="section-label">// THE BUILDER</div>
     <h2 class="section-title">One developer.<br/>One vision.</h2>
     <p class="section-sub" style="margin-bottom:48px;">MESH is an independent project — no VC funding, no team, no shortcuts.</p>
     <div class="builder-section">
-      <div class="builder-avatar">🧑‍💻</div>
+      <div class="builder-avatar">
+        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="6" width="32" height="36" rx="4" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+          <circle cx="24" cy="20" r="7" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+          <path d="M10 42 Q10 32 24 32 Q38 32 38 42" stroke="var(--accent)" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
       <div class="builder-content">
-        <div class="builder-tag">Solo Developer · Founder</div>
+        <div class="builder-tag">Founder · Solo Developer</div>
         <div class="builder-name">Mohamed Abdellah</div>
-        <div class="builder-title">Lebanon → Egypt → Russia · Building MESH since 2026</div>
-        <p class="builder-bio">Born in Lebanon, raised between Beirut and Alexandria, now based in Russia. Self-taught path from HTML and CSS into full-stack mobile development with React Native and the Stellar blockchain. I built MESH because I believe private communication is a right, not a feature. No team, no funding — just a clear problem and the stubbornness to solve it.</p>
+        <div class="builder-title">Lebanon · Russia · Building MESH since 2026</div>
+        <p class="builder-bio">Born in Lebanon. Studied history and political science at Lebanese University in Beirut. Self-taught in software development — no computer science degree, no bootcamp. I work 12-hour shifts as a professional driver and build MESH in the remaining hours. The project started because I believe private communication is a right, not a product feature. Everything you see was designed, built, and shipped by one person, using determination more than credentials.</p>
         <div class="builder-tags">
           <span class="builder-skill">React Native</span>
           <span class="builder-skill">Stellar / XLM</span>
@@ -476,9 +757,18 @@
           <span class="builder-skill">SQLite</span>
         </div>
         <div class="builder-links">
-          <a href="https://github.com/Mohamed9522" class="builder-link" target="_blank">GitHub</a>
-          <a href="mailto:contact@meshprotocol.ru" class="builder-link">contact@meshprotocol.ru</a>
-          <a href="/community.html" class="builder-link">Talk to us</a>
+          <a href="https://github.com/Mohamed9522" class="builder-link" target="_blank">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1 C3.9 1 1.4 3.6 1.4 6.8 C1.4 9.4 3.1 11.6 5.4 12.4 C5.7 12.5 5.8 12.3 5.8 12.1 L5.8 11.1 C4.1 11.5 3.7 10.3 3.7 10.3 C3.4 9.6 3 9.4 3 9.4 C2.4 9 3 9.1 3 9.1 C3.6 9.1 3.9 9.7 3.9 9.7 C4.5 10.8 5.4 10.5 5.8 10.3 C5.9 9.9 6.1 9.6 6.2 9.5 C4.7 9.3 3.1 8.8 3.1 6.2 C3.1 5.5 3.4 4.9 3.8 4.5 C3.7 4.3 3.5 3.7 3.9 2.9 C3.9 2.9 4.4 2.7 5.6 3.5 C6.1 3.4 6.5 3.3 7 3.3 C7.5 3.3 7.9 3.4 8.4 3.5 C9.6 2.7 10.1 2.9 10.1 2.9 C10.5 3.7 10.3 4.3 10.2 4.5 C10.6 4.9 10.9 5.5 10.9 6.2 C10.9 8.8 9.3 9.3 7.8 9.5 C8 9.7 8.2 10.1 8.2 10.8 L8.2 12.1 C8.2 12.3 8.3 12.5 8.6 12.4 C10.9 11.6 12.6 9.4 12.6 6.8 C12.6 3.6 10.1 1 7 1 Z" fill="currentColor"/></svg>
+            GitHub
+          </a>
+          <a href="mailto:contact@meshprotocol.ru" class="builder-link">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.2"/><path d="M1 5 L7 8 L13 5" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+            contact@meshprotocol.ru
+          </a>
+          <a href="/community.html" class="builder-link">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2 L12 2 L12 9 L7 9 L4 12 L4 9 L2 9 Z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>
+            Talk to us
+          </a>
         </div>
       </div>
     </div>
@@ -486,6 +776,7 @@
 
   <hr class="divider"/>
 
+  <!-- DOWNLOAD -->
   <section id="download" class="download-section">
     <div class="section-label">// GET MESH</div>
     <h2 class="section-title">Ready to disappear<br/>from the grid?</h2>
@@ -532,12 +823,15 @@
       </div>
     </div>
     <div class="social-links">
-      <a href="https://github.com/Mohamed9522/mesh-protocol" class="social-link" target="_blank" title="GitHub">⌥</a>
+      <a href="https://github.com/Mohamed9522/mesh-protocol" class="social-link" target="_blank" title="GitHub">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 C4.1 1 1 4.2 1 8.1 C1 11.2 3 13.8 5.8 14.8 C6.2 14.9 6.3 14.6 6.3 14.4 L6.3 13.1 C4.2 13.6 3.7 12.1 3.7 12.1 C3.3 11.2 2.8 11 2.8 11 C2.1 10.5 2.8 10.5 2.8 10.5 C3.6 10.6 4 11.3 4 11.3 C4.7 12.6 5.9 12.2 6.4 12 C6.5 11.4 6.7 11 6.9 10.8 C5.1 10.6 3.1 9.9 3.1 6.9 C3.1 6 3.4 5.3 3.9 4.8 C3.8 4.5 3.5 3.7 4 2.7 C4 2.7 4.6 2.5 6.1 3.5 C6.7 3.3 7.3 3.2 8 3.2 C8.7 3.2 9.3 3.3 9.9 3.5 C11.4 2.5 12 2.7 12 2.7 C12.5 3.7 12.2 4.5 12.1 4.8 C12.6 5.3 12.9 6 12.9 6.9 C12.9 9.9 10.9 10.6 9.1 10.8 C9.3 11 9.6 11.5 9.6 12.3 L9.6 14.4 C9.6 14.6 9.7 14.9 10.2 14.8 C13 13.8 15 11.2 15 8.1 C15 4.2 11.9 1 8 1 Z" fill="currentColor"/></svg>
+      </a>
       <a href="#" class="social-link" title="X / Twitter" style="opacity:0.3;cursor:not-allowed;">𝕏</a>
     </div>
   </footer>
 
   <script>
+    // ── ACCENT SWITCHER ──
     function setAccent(color, el) {
       document.documentElement.setAttribute('data-accent', color);
       localStorage.setItem('mesh-accent', color);
@@ -550,6 +844,8 @@
       const dot = document.querySelector(`.accent-dot[data-color="${saved}"]`);
       if (dot) { document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active')); dot.classList.add('active'); }
     })();
+
+    // ── DONATE COPY ──
     function copyDonate() {
       const addr = document.getElementById('donateAddr').innerText.trim();
       navigator.clipboard.writeText(addr).then(() => {
@@ -558,6 +854,43 @@
         setTimeout(() => { fb.style.opacity = '0'; }, 2000);
       });
     }
+
+    // ── PHONE SLIDER ──
+    const slides = [
+      { title: 'Your conversations', desc: 'All your chats in one place. Find anyone by @username — no phone number, no address book, no data shared with any server.' },
+      { title: 'Encrypted chat', desc: 'Every message is encrypted on your device before it leaves. The relay never sees plaintext. Nobody can read it but you and your recipient.' },
+      { title: 'Send XLM in chat', desc: 'Money and messages in the same thread. Send Stellar (XLM) to anyone with a MESH address. No bank, no intermediary, no extra steps.' },
+      { title: 'Find by @username', desc: 'Search any user by handle. No QR codes, no address copy-pasting. If they registered a username, you can reach them.' },
+      { title: 'Your keys, your account', desc: 'A 12-word phrase is your entire identity. Back it up once and restore your account on any device, anywhere in the world.' },
+    ];
+    let current = 0;
+
+    function getPhoneClass(index) {
+      const diff = index - current;
+      if (diff === 0) return 'active';
+      if (diff === -1 || (current === 0 && index === slides.length - 1)) return 'prev';
+      if (diff === 1 || (current === slides.length - 1 && index === 0)) return 'next';
+      return 'hidden';
+    }
+
+    function updateSlider() {
+      const phones = document.querySelectorAll('.slider-phone');
+      phones.forEach((p, i) => {
+        p.className = 'slider-phone ' + getPhoneClass(i);
+      });
+      document.getElementById('slideTitle').textContent = slides[current].title;
+      document.getElementById('slideDesc').textContent = slides[current].desc;
+      document.getElementById('slideCounter').textContent = String(current + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+      document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function nextSlide() { current = (current + 1) % slides.length; updateSlider(); }
+    function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlider(); }
+    function goToSlide(i) { current = i; updateSlider(); }
+
+    // Auto advance
+    setInterval(nextSlide, 4000);
   </script>
+
 </body>
 </html>
