@@ -17,7 +17,7 @@
 
     nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,10,0.8); border-bottom:1px solid var(--border); }
     .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .nav-logo-mark { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:18px; color:#000; }
+    .nav-logo-mark { width:36px; height:36px; border-radius:10px; overflow:hidden; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
     .nav-logo-text { font-size:16px; font-weight:700; color:var(--text); letter-spacing:0.05em; }
     .nav-back { color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; text-decoration:none; transition:color 0.2s; }
     .nav-back:hover { color:var(--accent); }
@@ -41,11 +41,9 @@
     .form-sub { font-size:14px; color:var(--muted); margin-bottom:32px; }
     .form-group { margin-bottom:20px; }
     .form-label { display:block; font-size:12px; font-family:'Space Mono',monospace; color:var(--muted); letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px; }
-    .form-input, .form-textarea, .form-select { width:100%; background:#0d0d0d; border:1px solid var(--border); border-radius:10px; padding:14px 18px; font-size:15px; color:var(--text); font-family:'Syne',sans-serif; transition:border-color 0.2s; outline:none; resize:none; }
-    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color:rgba(0,255,148,0.4); }
+    .form-input, .form-textarea { width:100%; background:#0d0d0d; border:1px solid var(--border); border-radius:10px; padding:14px 18px; font-size:15px; color:var(--text); font-family:'Syne',sans-serif; transition:border-color 0.2s; outline:none; resize:none; }
+    .form-input:focus, .form-textarea:focus { border-color:rgba(0,255,148,0.4); }
     .form-textarea { height:140px; line-height:1.6; }
-    .form-select { appearance:none; cursor:pointer; }
-    .form-select option { background:#111; }
 
     .type-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:4px; }
     .type-pill { padding:8px 16px; border-radius:100px; border:1px solid var(--border); background:transparent; color:var(--muted); font-size:13px; font-family:'Space Mono',monospace; cursor:pointer; transition:all 0.2s; }
@@ -80,7 +78,7 @@
 
   <nav>
     <a href="/" class="nav-logo">
-      <div class="nav-logo-mark">M</div>
+      <div class="nav-logo-mark"><img src="logo.png" width="36" height="36" style="object-fit:cover;border-radius:10px;display:block;" alt="MESH"/></div>
       <span class="nav-logo-text">MESH</span>
     </a>
     <a href="/" class="nav-back">← Back to home</a>
@@ -91,7 +89,6 @@
     <h1 class="page-title">Talk to<br/><span>us.</span></h1>
     <p class="page-intro">MESH is built by one person — but it belongs to everyone who needs it. Private communication is a right, not a feature. If you believe in that, you're already part of this. If you have an idea, a problem, a question, or just something to say — we genuinely want to hear it. This is not a support ticket system. This is a conversation.</p>
 
-    <!-- CHANNELS -->
     <div class="channels">
       <a href="mailto:contact@meshprotocol.ru" class="channel-card">
         <div class="channel-icon">
@@ -119,7 +116,6 @@
       </a>
     </div>
 
-    <!-- FORM -->
     <div class="form-section">
       <div class="form-title">Send us a message</div>
       <p class="form-sub">Tell us what's on your mind. Every message is read by a real person — Mohamed himself.</p>
@@ -156,7 +152,6 @@
       </div>
     </div>
 
-    <!-- PARTNER SECTION -->
     <div class="partner-section">
       <div class="partner-title">Interested in partnering?</div>
       <p class="partner-desc">MESH is at an early stage and open to serious collaborations. If you represent an organization, fund, developer community, or privacy-focused initiative — let's talk. No pitch decks required. Just an honest conversation.</p>
