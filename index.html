@@ -124,22 +124,23 @@
       justify-content:center;
     }
 
-    /* ── phone stage: fixed size, clips the carousel ── */
+    /* ── phone stage ── */
     .slider-stage {
       flex-shrink: 0;
-      width: 260px;           /* exactly one phone wide */
+      width: 500px;
       height: 500px;
       position: relative;
-      overflow: hidden;      /* let shadows show */
+      overflow: hidden;
     }
 
-    /* ── every phone card is absolute inside the stage ── */
+    /* ── every phone card ── */
     .slider-phone {
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 10px;
+      left: 50%;
       width: 240px;
-      height: 480px;
+      height: 470px;
+      margin-left: -120px;
       background: #111;
       border-radius: 32px;
       border: 2px solid #222;
@@ -147,33 +148,32 @@
       transition: transform 0.5s cubic-bezier(0.4,0,0.2,1),
                   opacity  0.5s cubic-bezier(0.4,0,0.2,1),
                   box-shadow 0.5s;
-      /* default: hidden behind active */
       transform: translateX(0) scale(0.82);
       opacity: 0;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* active — centred, full size */
+    /* active — centered, full size */
     .slider-phone.active {
-      transform: translateX(10px) scale(1);
+      transform: translateX(0) scale(1);
       opacity: 1;
       z-index: 3;
       pointer-events: auto;
       box-shadow: 0 0 60px var(--accent-bg), 0 30px 60px rgba(0,0,0,0.8);
     }
 
-    /* prev — peeks to the left */
+    /* prev — peeks from left, fully inside stage */
     .slider-phone.prev {
-      transform: translateX(-160px) scale(0.84);
-      opacity: 0.35;
+      transform: translateX(-220px) scale(0.82);
+      opacity: 0.3;
       z-index: 2;
     }
 
-    /* next — peeks to the right */
+    /* next — peeks from right, fully inside stage */
     .slider-phone.next {
-      transform: translateX(180px) scale(0.84);
-      opacity: 0.35;
+      transform: translateX(220px) scale(0.82);
+      opacity: 0.3;
       z-index: 2;
     }
 
@@ -327,8 +327,8 @@
       }
       .slider-dots { justify-content: center; }
       .slider-nav  { justify-content: center; }
-      .slider-stage {
-        width: 260px;
+        .slider-stage {
+        width: 320px;
         height: 500px;
       }
     }
@@ -341,8 +341,7 @@
       .accent-switcher { bottom:16px; right:16px; }
       .roadmap-item { flex-direction:column; gap:16px; padding:24px; }
       .roadmap-left { min-width:unset; }
-      .slider-phone.prev { transform: translateX(-60px) scale(0.84); }
-      .slider-phone.next { transform: translateX( 60px) scale(0.84); }
+      
     }
   </style>
 </head>
