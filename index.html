@@ -36,6 +36,7 @@
     body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; opacity:0.4; }
     body::after { content:''; position:fixed; inset:0; background-image:linear-gradient(var(--accent-faint) 1px, transparent 1px), linear-gradient(90deg, var(--accent-faint) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; z-index:0; transition:background-image 0.4s; }
 
+    /* ── NAV ── */
     nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:20px 48px; backdrop-filter:blur(12px); background:rgba(10,10,10,0.8); border-bottom:1px solid var(--border); }
     .nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
     .nav-logo-mark { width:36px; height:36px; background:var(--accent); border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:18px; color:#000; transition:background 0.4s; }
@@ -46,6 +47,7 @@
     .nav-cta { background:var(--accent); color:#000 !important; padding:10px 20px; border-radius:8px; font-weight:700 !important; transition:opacity 0.2s, background 0.4s !important; }
     .nav-cta:hover { opacity:0.85; }
 
+    /* ── ACCENT SWITCHER ── */
     .accent-switcher { position:fixed; bottom:24px; right:24px; z-index:200; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
     .accent-label { font-family:'Space Mono',monospace; font-size:9px; color:#333; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; }
     .accent-dots { display:flex; gap:8px; }
@@ -58,6 +60,7 @@
     .accent-dot[data-color="orange"] { background:#FF8C42; }
     .accent-dot[data-color="white"]  { background:#FFFFFF; }
 
+    /* ── HERO ── */
     .hero { position:relative; z-index:1; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 24px 80px; }
     .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--accent-bg); border:1px solid var(--accent-border); border-radius:100px; padding:6px 16px; font-size:12px; font-family:'Space Mono',monospace; color:var(--accent); letter-spacing:0.1em; margin-bottom:40px; animation:fadeUp 0.6s ease both; transition:color 0.4s, background 0.4s, border-color 0.4s; }
     .hero-badge-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 2s ease infinite; transition:background 0.4s; }
@@ -73,7 +76,6 @@
     .btn-secondary { background:transparent; color:var(--text); padding:16px 32px; border-radius:12px; font-size:15px; font-weight:600; text-decoration:none; border:1px solid var(--border); transition:border-color 0.2s, transform 0.2s; display:inline-flex; align-items:center; gap:8px; }
     .btn-secondary:hover { border-color:var(--accent); transform:translateY(-2px); }
     .hero-note { margin-top:20px; font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; animation:fadeUp 0.6s 0.5s ease both; }
-
     .hero-visual { margin-top:80px; position:relative; animation:fadeUp 0.8s 0.5s ease both; }
     .phone { width:260px; height:520px; background:#111; border-radius:36px; border:2px solid #222; margin:0 auto; position:relative; overflow:hidden; box-shadow:0 0 80px var(--accent-bg), 0 40px 80px rgba(0,0,0,0.8); transition:box-shadow 0.4s; }
     .phone-screen { padding:20px 16px; height:100%; display:flex; flex-direction:column; gap:10px; }
@@ -90,11 +92,14 @@
     .phone-input { margin-top:auto; background:#1a1a1a; border-radius:20px; padding:10px 14px; font-size:10px; color:#444; font-family:'Space Mono',monospace; display:flex; align-items:center; justify-content:space-between; }
     .phone-send { width:24px; height:24px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; transition:background 0.4s; }
 
+    /* ── SECTIONS ── */
     section { position:relative; z-index:1; padding:100px 24px; max-width:1100px; margin:0 auto; }
     .section-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:16px; transition:color 0.4s; }
     .section-title { font-size:clamp(32px,4vw,52px); font-weight:800; letter-spacing:-0.02em; line-height:1.1; margin-bottom:16px; }
     .section-sub { color:var(--muted); font-size:16px; line-height:1.7; max-width:560px; }
+    .divider { border:none; border-top:1px solid var(--border); max-width:1100px; margin:0 auto; }
 
+    /* ── HOW IT WORKS ── */
     .steps { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:2px; margin-top:64px; background:var(--border); border-radius:20px; overflow:hidden; }
     .step { background:var(--card); padding:40px 32px; }
     .step-num { font-family:'Space Mono',monospace; font-size:11px; color:var(--accent); letter-spacing:0.1em; margin-bottom:20px; transition:color 0.4s; }
@@ -102,15 +107,77 @@
     .step-title { font-size:17px; font-weight:700; margin-bottom:10px; }
     .step-desc { font-size:13px; color:var(--muted); line-height:1.7; }
 
-    /* ── PHONE SLIDER ── */
+    /* ══════════════════════════════════════
+       SLIDER — completely rewritten
+       Layout: phones left, info right
+       No position switching, no conflicts
+    ══════════════════════════════════════ */
     .slider-section { position:relative; z-index:1; padding:100px 24px; max-width:1100px; margin:0 auto; }
-    .slider-wrap { margin-top:64px; display:flex; flex-direction:row; align-items:center; gap:64px; justify-content:center; flex-wrap:nowrap; }
-    .slider-phones { position:relative; width:320px; height:520px; flex-shrink:0; }
-    .slider-phone { width:240px; height:480px; background:#111; border-radius:32px; border:2px solid #222; position:absolute; overflow:hidden; box-shadow:0 0 60px var(--accent-bg), 0 30px 60px rgba(0,0,0,0.8); transition:all 0.5s cubic-bezier(0.4,0,0.2,1); }
-    .slider-phone.active { transform:translateX(0) scale(1); opacity:1; z-index:3; position:relative; }
-    .slider-phone.prev  { transform:translateX(-180px) scale(0.88); opacity:0.4; z-index:2; }
-    .slider-phone.next  { transform:translateX(180px) scale(0.88); opacity:0.4; z-index:2; }
-    .slider-phone.hidden { transform:translateX(0) scale(0.75); opacity:0; z-index:1; }
+
+    /* outer row */
+    .slider-wrap {
+      margin-top:64px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:80px;
+      justify-content:center;
+    }
+
+    /* ── phone stage: fixed size, clips the carousel ── */
+    .slider-stage {
+      flex-shrink: 0;
+      width: 260px;           /* exactly one phone wide */
+      height: 500px;
+      position: relative;
+      overflow: visible;      /* let shadows show */
+    }
+
+    /* ── every phone card is absolute inside the stage ── */
+    .slider-phone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 240px;
+      height: 480px;
+      background: #111;
+      border-radius: 32px;
+      border: 2px solid #222;
+      overflow: hidden;
+      transition: transform 0.5s cubic-bezier(0.4,0,0.2,1),
+                  opacity  0.5s cubic-bezier(0.4,0,0.2,1),
+                  box-shadow 0.5s;
+      /* default: hidden behind active */
+      transform: translateX(0) scale(0.82);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* active — centred, full size */
+    .slider-phone.active {
+      transform: translateX(10px) scale(1);
+      opacity: 1;
+      z-index: 3;
+      pointer-events: auto;
+      box-shadow: 0 0 60px var(--accent-bg), 0 30px 60px rgba(0,0,0,0.8);
+    }
+
+    /* prev — peeks to the left */
+    .slider-phone.prev {
+      transform: translateX(-160px) scale(0.84);
+      opacity: 0.35;
+      z-index: 2;
+    }
+
+    /* next — peeks to the right */
+    .slider-phone.next {
+      transform: translateX(180px) scale(0.84);
+      opacity: 0.35;
+      z-index: 2;
+    }
+
+    /* ── phone screen internals ── */
     .s-screen { padding:18px 14px; height:100%; display:flex; flex-direction:column; gap:8px; }
     .s-header { display:flex; align-items:center; gap:8px; padding-bottom:10px; border-bottom:1px solid #1a1a1a; margin-bottom:4px; }
     .s-avatar { width:28px; height:28px; border-radius:8px; background:#1A3D2B; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--accent); font-family:'Space Mono',monospace; flex-shrink:0; }
@@ -140,35 +207,31 @@
     .s-pay-val { font-size:10px; color:var(--accent); font-family:'Space Mono',monospace; font-weight:700; }
     .s-search { background:#0d0d0d; border:1px solid #1a1a1a; border-radius:10px; padding:7px 10px; font-size:9px; color:#333; font-family:'Space Mono',monospace; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
 
-    .slider-info { flex:0 0 340px; display:flex; flex-direction:column; justify-content:center; }
+    /* ── info panel (right side) ── */
+    .slider-info {
+      flex: 0 0 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0;
+    }
     .slide-counter { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); margin-bottom:16px; }
     .slide-title { font-size:26px; font-weight:800; margin-bottom:10px; letter-spacing:-0.02em; }
-    .slide-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:32px; }
+    .slide-desc { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:28px; }
     .slider-dots { display:flex; gap:8px; margin-bottom:24px; }
-    .slider-dot { width:8px; height:8px; border-radius:50%; background:#222; cursor:pointer; transition:background 0.3s, transform 0.2s; border:none; }
+    .slider-dot { width:8px; height:8px; border-radius:50%; background:#222; cursor:pointer; transition:background 0.3s, transform 0.2s; border:none; padding:0; }
     .slider-dot.active { background:var(--accent); transform:scale(1.3); }
-    .slider-nav { display:flex; gap:12px; margin-top:auto; padding-top:16px; }
+    .slider-nav { display:flex; gap:12px; }
     .slider-btn { width:44px; height:44px; border-radius:12px; background:var(--card); border:1px solid var(--border); color:var(--text); font-size:18px; cursor:pointer; transition:border-color 0.2s, transform 0.2s; display:flex; align-items:center; justify-content:center; }
     .slider-btn:hover { border-color:var(--accent); transform:translateY(-2px); }
 
+    /* ── FEATURES ── */
     .features { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:64px; }
     .feature-card { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:32px; transition:border-color 0.2s, transform 0.2s; }
     .feature-card:hover { border-color:var(--accent-border); transform:translateY(-4px); }
     .feature-icon { width:36px; height:36px; margin-bottom:16px; display:block; }
     .feature-title { font-size:16px; font-weight:700; margin-bottom:8px; }
     .feature-desc { font-size:13px; color:var(--muted); line-height:1.7; }
-
-    .compare-wrap { margin-top:64px; overflow-x:auto; border-radius:16px; border:1px solid var(--border); }
-    table { width:100%; border-collapse:collapse; font-size:14px; }
-    thead tr { background:#111; border-bottom:1px solid var(--border); }
-    th { padding:20px 24px; text-align:left; font-weight:700; font-size:13px; color:var(--muted); letter-spacing:0.05em; }
-    th.highlight { color:var(--accent); transition:color 0.4s; }
-    td { padding:18px 24px; border-bottom:1px solid #151515; font-size:13px; color:#999; }
-    td.highlight { color:var(--text); font-weight:600; }
-    .check { color:var(--accent); font-size:16px; transition:color 0.4s; }
-    .cross { color:#333; font-size:16px; }
-    tr:last-child td { border-bottom:none; }
-    tr:hover td { background:rgba(255,255,255,0.01); }
 
     /* ── ROADMAP ── */
     .roadmap { margin-top:64px; display:flex; flex-direction:column; gap:2px; border-radius:20px; overflow:hidden; background:var(--border); }
@@ -187,6 +250,7 @@
     .roadmap-features li.done::before { background:var(--accent); }
     .roadmap-features li.done { color:#ccc; }
 
+    /* ── STELLAR ── */
     .stellar-section { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:64px; display:flex; align-items:center; gap:64px; flex-wrap:wrap; }
     .stellar-logo { width:80px; height:80px; background:linear-gradient(135deg,#7B61FF,#4B3FCC); border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:36px; flex-shrink:0; }
     .stellar-title { font-size:28px; font-weight:800; margin-bottom:12px; }
@@ -209,6 +273,7 @@
     .builder-link { display:inline-flex; align-items:center; gap:8px; background:#161616; border:1px solid #222; border-radius:10px; padding:10px 16px; font-size:13px; color:#888; text-decoration:none; transition:border-color 0.2s, color 0.2s; }
     .builder-link:hover { border-color:var(--accent); color:var(--accent); }
 
+    /* ── DOWNLOAD ── */
     .download-section { text-align:center; }
     .download-card { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:80px 48px; margin-top:64px; position:relative; overflow:hidden; }
     .download-card::before { content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:400px; height:400px; background:radial-gradient(circle, var(--accent-bg) 0%, transparent 70%); pointer-events:none; transition:background 0.4s; }
@@ -221,7 +286,6 @@
     .btn-store-label { font-size:10px; color:var(--muted); display:block; text-align:left; }
     .btn-store-name { font-size:15px; font-weight:700; display:block; }
     .download-note { font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; }
-
     .donate-card { background:linear-gradient(135deg, var(--accent-bg), rgba(0,0,0,0)); border:1px solid var(--accent-border); border-radius:16px; padding:32px; margin-top:32px; text-align:center; transition:background 0.4s, border-color 0.4s; }
     .donate-title { font-size:18px; font-weight:700; margin-bottom:8px; }
     .donate-desc { color:var(--muted); font-size:13px; margin-bottom:20px; }
@@ -230,6 +294,7 @@
     .donate-copy-feedback { font-size:11px; color:var(--accent); margin-top:8px; height:16px; transition:opacity 0.3s, color 0.4s; opacity:0; font-family:'Space Mono',monospace; }
     .donate-note { font-size:11px; color:var(--muted); margin-top:10px; font-family:'Space Mono',monospace; }
 
+    /* ── FOOTER ── */
     footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:48px; display:flex; align-items:center; justify-content:space-between; gap:24px; max-width:1100px; margin:0 auto; flex-wrap:wrap; }
     .footer-left { display:flex; flex-direction:column; gap:8px; }
     .footer-copy { font-size:12px; color:var(--muted); font-family:'Space Mono',monospace; }
@@ -240,11 +305,33 @@
     .social-link { width:40px; height:40px; border-radius:10px; background:var(--card); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:16px; transition:border-color 0.2s, transform 0.2s; color:var(--muted); }
     .social-link:hover { border-color:var(--accent); transform:translateY(-2px); color:var(--accent); }
 
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes pulse { 0%, 100% { opacity:1; } 50% { opacity:0.3; } }
-    .divider { border:none; border-top:1px solid var(--border); max-width:1100px; margin:0 auto; }
+    @keyframes pulse  { 0%, 100% { opacity:1; } 50% { opacity:0.3; } }
 
-    @media (max-width:768px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .slider-wrap {
+        flex-direction: column;
+        gap: 48px;
+        align-items: center;
+      }
+      .slider-info {
+        flex: none;
+        width: 100%;
+        max-width: 500px;
+        align-items: center;
+        text-align: center;
+      }
+      .slider-dots { justify-content: center; }
+      .slider-nav  { justify-content: center; }
+      .slider-stage {
+        width: 260px;
+        height: 500px;
+      }
+    }
+
+    @media (max-width: 768px) {
       nav { padding:16px 20px; }
       .nav-links { display:none; }
       .stellar-section, .builder-section { padding:40px 24px; gap:32px; }
@@ -252,8 +339,8 @@
       .accent-switcher { bottom:16px; right:16px; }
       .roadmap-item { flex-direction:column; gap:16px; padding:24px; }
       .roadmap-left { min-width:unset; }
-      .slider-wrap { flex-direction:column; }
-      .slider-phones { width:100%; }
+      .slider-phone.prev { transform: translateX(-120px) scale(0.84); }
+      .slider-phone.next { transform: translateX( 140px) scale(0.84); }
     }
   </style>
 </head>
@@ -389,8 +476,9 @@
     <p class="section-sub">Every screen you see is live and working on Stellar testnet right now.</p>
 
     <div class="slider-wrap">
-      <!-- PHONES -->
-      <div class="slider-phones" id="sliderPhones">
+
+      <!-- PHONE STAGE -->
+      <div class="slider-stage" id="sliderStage">
 
         <!-- Screen 0: Chat list -->
         <div class="slider-phone active" data-index="0">
@@ -483,13 +571,13 @@
         </div>
 
         <!-- Screen 2: Send XLM -->
-        <div class="slider-phone hidden" data-index="2">
+        <div class="slider-phone" data-index="2">
           <div class="s-screen">
             <div class="s-title-bar">Send XLM · @zuzu</div>
             <div class="s-field-label">Amount</div>
             <div class="s-field" style="color:var(--accent);font-size:14px;font-weight:700">0.50 XLM</div>
             <div class="s-field-label">Memo (optional)</div>
-            <div class="s-field">coffee ☕</div>
+            <div class="s-field">coffee</div>
             <hr class="s-divider" style="margin:10px 0"/>
             <div class="s-pay-row">
               <div class="s-pay-label">To</div>
@@ -509,7 +597,7 @@
         </div>
 
         <!-- Screen 3: Username search -->
-        <div class="slider-phone hidden" data-index="3">
+        <div class="slider-phone" data-index="3">
           <div class="s-screen">
             <div class="s-title-bar">Find a contact</div>
             <div class="s-search" style="border-color:rgba(0,255,148,0.3);color:var(--accent)">
@@ -531,7 +619,7 @@
         </div>
 
         <!-- Screen 4: Settings / Backup -->
-        <div class="slider-phone hidden" data-index="4">
+        <div class="slider-phone" data-index="4">
           <div class="s-screen">
             <div class="s-title-bar">Settings</div>
             <div style="font-size:9px;color:#555;font-family:'Space Mono',monospace;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em">Account</div>
@@ -554,9 +642,9 @@
           </div>
         </div>
 
-      </div>
+      </div><!-- /slider-stage -->
 
-      <!-- SLIDE INFO -->
+      <!-- INFO PANEL -->
       <div class="slider-info">
         <div class="slide-counter" id="slideCounter">01 / 05</div>
         <div class="slide-title" id="slideTitle">Your conversations</div>
@@ -573,7 +661,8 @@
           <button class="slider-btn" onclick="nextSlide()">→</button>
         </div>
       </div>
-    </div>
+
+    </div><!-- /slider-wrap -->
   </section>
 
   <hr class="divider"/>
@@ -625,7 +714,6 @@
     <h2 class="section-title">Where we are.<br/>Where we're going.</h2>
     <p class="section-sub" style="margin-bottom:64px;">Five phases. Built in public. Every milestone earned before the next one starts.</p>
     <div class="roadmap">
-
       <div class="roadmap-item">
         <div class="roadmap-left">
           <div class="roadmap-phase">Phase 0</div>
@@ -642,7 +730,6 @@
           <li class="done">Android APK — live on Stellar testnet</li>
         </ul>
       </div>
-
       <div class="roadmap-item">
         <div class="roadmap-left">
           <div class="roadmap-phase">Phase 1</div>
@@ -658,7 +745,6 @@
           <li>Relay infrastructure — 2 additional nodes, 2 regions</li>
         </ul>
       </div>
-
       <div class="roadmap-item">
         <div class="roadmap-left">
           <div class="roadmap-phase">Phase 2</div>
@@ -674,7 +760,6 @@
           <li>10,000 user capacity</li>
         </ul>
       </div>
-
       <div class="roadmap-item">
         <div class="roadmap-left">
           <div class="roadmap-phase">Phase 3</div>
@@ -690,7 +775,6 @@
           <li>Community relay nodes — operators earn XLM directly</li>
         </ul>
       </div>
-
       <div class="roadmap-item">
         <div class="roadmap-left">
           <div class="roadmap-phase">Phase 4</div>
@@ -705,7 +789,6 @@
           <li>Regional expansion — Africa, Middle East, Southeast Asia</li>
         </ul>
       </div>
-
     </div>
   </section>
 
@@ -842,7 +925,10 @@
       const saved = localStorage.getItem('mesh-accent') || 'green';
       document.documentElement.setAttribute('data-accent', saved);
       const dot = document.querySelector(`.accent-dot[data-color="${saved}"]`);
-      if (dot) { document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active')); dot.classList.add('active'); }
+      if (dot) {
+        document.querySelectorAll('.accent-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+      }
     })();
 
     // ── DONATE COPY ──
@@ -855,41 +941,52 @@
       });
     }
 
-    // ── PHONE SLIDER ──
+    // ── SLIDER ──
     const slides = [
-      { title: 'Your conversations', desc: 'All your chats in one place. Find anyone by @username — no phone number, no address book, no data shared with any server.' },
-      { title: 'Encrypted chat', desc: 'Every message is encrypted on your device before it leaves. The relay never sees plaintext. Nobody can read it but you and your recipient.' },
-      { title: 'Send XLM in chat', desc: 'Money and messages in the same thread. Send Stellar (XLM) to anyone with a MESH address. No bank, no intermediary, no extra steps.' },
-      { title: 'Find by @username', desc: 'Search any user by handle. No QR codes, no address copy-pasting. If they registered a username, you can reach them.' },
+      { title: 'Your conversations',    desc: 'All your chats in one place. Find anyone by @username — no phone number, no address book, no data shared with any server.' },
+      { title: 'Encrypted chat',        desc: 'Every message is encrypted on your device before it leaves. The relay never sees plaintext. Nobody can read it but you and your recipient.' },
+      { title: 'Send XLM in chat',      desc: 'Money and messages in the same thread. Send Stellar (XLM) to anyone with a MESH address. No bank, no intermediary, no extra steps.' },
+      { title: 'Find by @username',     desc: 'Search any user by handle. No QR codes, no address copy-pasting. If they registered a username, you can reach them.' },
       { title: 'Your keys, your account', desc: 'A 12-word phrase is your entire identity. Back it up once and restore your account on any device, anywhere in the world.' },
     ];
+    const total = slides.length;
     let current = 0;
+    let autoTimer = null;
 
-    function getPhoneClass(index) {
-      const diff = index - current;
-      if (diff === 0) return 'active';
-      if (diff === -1 || (current === 0 && index === slides.length - 1)) return 'prev';
-      if (diff === 1 || (current === slides.length - 1 && index === 0)) return 'next';
-      return 'hidden';
+    function getClass(i) {
+      if (i === current) return 'active';
+      // calculate wrapped distance
+      const prev = (current - 1 + total) % total;
+      const next = (current + 1) % total;
+      if (i === prev) return 'prev';
+      if (i === next) return 'next';
+      return '';   // hidden (no class = default hidden state in CSS)
     }
 
     function updateSlider() {
-      const phones = document.querySelectorAll('.slider-phone');
-      phones.forEach((p, i) => {
-        p.className = 'slider-phone ' + getPhoneClass(i);
+      document.querySelectorAll('.slider-phone').forEach((el, i) => {
+        el.className = 'slider-phone ' + getClass(i);
       });
-      document.getElementById('slideTitle').textContent = slides[current].title;
-      document.getElementById('slideDesc').textContent = slides[current].desc;
-      document.getElementById('slideCounter').textContent = String(current + 1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
-      document.querySelectorAll('.slider-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      document.getElementById('slideTitle').textContent   = slides[current].title;
+      document.getElementById('slideDesc').textContent    = slides[current].desc;
+      document.getElementById('slideCounter').textContent =
+        String(current + 1).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+      document.querySelectorAll('.slider-dot').forEach((d, i) =>
+        d.classList.toggle('active', i === current));
     }
 
-    function nextSlide() { current = (current + 1) % slides.length; updateSlider(); }
-    function prevSlide() { current = (current - 1 + slides.length) % slides.length; updateSlider(); }
-    function goToSlide(i) { current = i; updateSlider(); }
+    function nextSlide() { current = (current + 1) % total; updateSlider(); }
+    function prevSlide() { current = (current - 1 + total) % total; updateSlider(); }
+    function goToSlide(i) { current = i; updateSlider(); resetAuto(); }
 
-    // Auto advance
-    setInterval(nextSlide, 4000);
+    function resetAuto() {
+      clearInterval(autoTimer);
+      autoTimer = setInterval(nextSlide, 4000);
+    }
+
+    // init
+    updateSlider();
+    resetAuto();
   </script>
 
 </body>
