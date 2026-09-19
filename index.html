@@ -4,8 +4,8 @@
   <meta name="mailru-domain" content="vQVkhou8huB7G2BD" />
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MESH Protocol — Encrypted Messaging on the Blockchain</title>
-  <meta name="description" content="No phone number. No email. No server. Encrypted messaging built on Stellar blockchain." />
+  <title>MESH Protocol — Private Messaging with Built-in Payments</title>
+  <meta name="description" content="No phone number. No email. End-to-end encrypted messaging with money built in, powered by Stellar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
@@ -386,12 +386,12 @@
       Message anyone.<br/>
       <span>Leave no trace.</span>
     </h1>
-    <p class="hero-sub">No phone number. No email. No central server. Encrypted messaging built on the Stellar blockchain — your identity is your keys.</p>
+    <p class="hero-sub">No phone number. No email. End-to-end encrypted messaging with money built in — your identity is your keys, and payments run on the Stellar blockchain.</p>
     <div class="hero-pills">
       <span class="pill pill-accent">End-to-end encrypted</span>
       <span class="pill">No KYC</span>
       <span class="pill">Stellar blockchain</span>
-      <span class="pill">IPFS storage</span>
+      <span class="pill">Deleted on delivery</span>
       <span class="pill pill-accent">@username search</span>
       <span class="pill">BIP39 backup</span>
     </div>
@@ -423,7 +423,7 @@
             <div class="msg-time">12:02</div>
           </div>
           <div class="msg-wrap msg-wrap-out">
-            <div class="msg msg-out">stellar tx + ipfs. nobody reads it but you.</div>
+            <div class="msg msg-out">end-to-end encrypted. nobody reads it but you.</div>
             <div class="msg-time" style="text-align:right">12:02</div>
           </div>
           <div class="phone-input">
@@ -441,7 +441,7 @@
   <section id="how">
     <div class="section-label">// HOW IT WORKS</div>
     <h2 class="section-title">Four steps.<br/>Zero compromise.</h2>
-    <p class="section-sub">Every message travels through Stellar and IPFS — encrypted before it leaves your device. No server ever sees your plaintext.</p>
+    <p class="section-sub">Every message is encrypted on your phone before it leaves. A relay carries it only until it is delivered, then deletes it. No server ever sees your plaintext.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">01</div>
@@ -458,14 +458,14 @@
       <div class="step">
         <div class="step-num">03</div>
         <svg class="step-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="var(--accent-bg)"/><circle cx="10" cy="20" r="3" stroke="var(--accent)" stroke-width="1.5"/><circle cx="30" cy="20" r="3" stroke="var(--accent)" stroke-width="1.5"/><circle cx="20" cy="12" r="3" stroke="var(--accent)" stroke-width="1.5"/><line x1="13" y1="20" x2="27" y2="20" stroke="var(--accent)" stroke-width="1"/><line x1="12" y1="18" x2="18" y2="13" stroke="var(--accent)" stroke-width="1"/><line x1="28" y1="18" x2="22" y2="13" stroke="var(--accent)" stroke-width="1"/></svg>
-        <div class="step-title">Send via Stellar</div>
-        <p class="step-desc">The encrypted blob is stored on IPFS. A Stellar transaction carries the pointer to your recipient. Cost: 0.00001 XLM.</p>
+        <div class="step-title">Send via a relay</div>
+        <p class="step-desc">The encrypted message goes to a relay, which holds it only until your recipient picks it up. Ordinary messages are free; payments use the Stellar network.</p>
       </div>
       <div class="step">
         <div class="step-num">04</div>
         <svg class="step-icon" viewBox="0 0 40 40" fill="none"><rect width="40" height="40" rx="8" fill="var(--accent-bg)"/><rect x="10" y="14" width="20" height="14" rx="2" stroke="var(--accent)" stroke-width="1.5"/><path d="M10 18 L20 24 L30 18" stroke="var(--accent)" stroke-width="1.5" fill="none"/></svg>
         <div class="step-title">Receive and decrypt</div>
-        <p class="step-desc">Recipient fetches the pointer, retrieves from IPFS, and decrypts locally. Only they can read it.</p>
+        <p class="step-desc">Your recipient's app collects it, confirms delivery so the relay deletes its copy, and decrypts it locally. Only they can read it.</p>
       </div>
     </div>
   </section>
@@ -495,7 +495,7 @@
               <div class="s-list-avatar">Z</div>
               <div style="flex:1">
                 <div class="s-list-name">@zuzu</div>
-                <div class="s-list-preview">stellar tx + ipfs. nobody reads...</div>
+                <div class="s-list-preview">end-to-end encrypted. nobody reads...</div>
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
                 <div class="s-list-time">12:02</div>
@@ -551,11 +551,11 @@
               <div class="s-time" style="text-align:right">11:59</div>
             </div>
             <div class="s-row">
-              <div class="s-msg s-msg-in">and messages go via stellar?</div>
+              <div class="s-msg s-msg-in">so how do messages travel?</div>
               <div class="s-time">12:00</div>
             </div>
             <div class="s-row s-row-out">
-              <div class="s-msg s-msg-out">stellar + ipfs. relay never sees plaintext</div>
+              <div class="s-msg s-msg-out">via an encrypted relay. it never sees plaintext</div>
               <div class="s-time" style="text-align:right">12:01</div>
             </div>
             <div class="s-row">
@@ -693,8 +693,8 @@
       </div>
       <div class="feature-card">
         <svg class="feature-icon" viewBox="0 0 36 36" fill="none"><circle cx="8" cy="18" r="3" stroke="var(--accent)" stroke-width="1.5"/><circle cx="28" cy="10" r="3" stroke="var(--accent)" stroke-width="1.5"/><circle cx="28" cy="26" r="3" stroke="var(--accent)" stroke-width="1.5"/><line x1="11" y1="17" x2="25" y2="11" stroke="var(--accent)" stroke-width="1"/><line x1="11" y1="19" x2="25" y2="25" stroke="var(--accent)" stroke-width="1"/></svg>
-        <div class="feature-title">Decentralized storage</div>
-        <p class="feature-desc">Messages live on IPFS — not on our servers. We cannot delete them. We cannot read them.</p>
+        <div class="feature-title">Deleted on delivery</div>
+        <p class="feature-desc">Relays hold your encrypted message only until it reaches your recipient, then delete it; undelivered messages expire after 14 days. We cannot read them, and your chat history lives only on your phone.</p>
       </div>
       <div class="feature-card">
         <svg class="feature-icon" viewBox="0 0 36 36" fill="none"><rect x="8" y="8" width="20" height="20" rx="3" stroke="var(--accent)" stroke-width="1.5"/><path d="M13 18 L17 22 L23 14" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -742,7 +742,7 @@
         </div>
         <ul class="roadmap-features">
           <li>Stellar mainnet deployment</li>
-          <li>Profile pictures via IPFS</li>
+          <li>Profile pictures</li>
           <li>Security audit — encryption &amp; key management</li>
           <li>Public GitHub repo at v0.0.1</li>
           <li>Relay infrastructure — 2 additional nodes, 2 regions</li>
@@ -804,9 +804,9 @@
       <div class="stellar-content">
         <div class="section-label">// BUILT ON STELLAR</div>
         <div class="stellar-title">Powered by the Stellar Network</div>
-        <p class="stellar-desc">MESH uses the Stellar blockchain as its message transport layer. Every message is a Stellar transaction — fast, cheap, and permanent. We are proud to build on one of the most efficient and accessible blockchain networks in the world.</p>
+        <p class="stellar-desc">MESH uses the Stellar blockchain for money: send XLM to anyone inside a chat, settled in seconds for a fraction of a cent. Ordinary messages never touch the blockchain, so who you talk to is not written to a public ledger. We are proud to build on one of the most efficient and accessible blockchain networks in the world.</p>
         <div class="stellar-stats">
-          <div><div class="stellar-stat-val">0.00001</div><div class="stellar-stat-label">XLM per message</div></div>
+          <div><div class="stellar-stat-val">0.00001</div><div class="stellar-stat-label">XLM network fee per payment</div></div>
           <div><div class="stellar-stat-val">&lt; 5s</div><div class="stellar-stat-label">transaction finality</div></div>
           <div><div class="stellar-stat-val">$0</div><div class="stellar-stat-label">MESH infrastructure fee</div></div>
         </div>
