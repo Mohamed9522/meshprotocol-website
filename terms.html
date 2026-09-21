@@ -69,7 +69,7 @@
     <h2>2. What MESH Is</h2>
     <p>MESH is an end-to-end encrypted messaging application with built-in payments on the Stellar blockchain. MESH provides:</p>
     <ul>
-      <li>End-to-end encrypted messaging using NaCl box encryption</li>
+      <li>End-to-end encrypted messaging with forward secrecy (X3DH key agreement and Double Ratchet built from standard primitives; older contacts fall back to an earlier format)</li>
       <li>Message delivery through relay servers, which hold an encrypted message only until it is delivered and then delete it</li>
       <li>Chat history stored only on your own device</li>
       <li>A username registry on our relay server for contact discovery</li>
@@ -97,7 +97,7 @@
     <p>You are responsible for maintaining sufficient XLM balance in your Stellar wallet to send payments. MESH is not responsible for failed transactions due to insufficient funds.</p>
 
     <h2>6. Testnet Status</h2>
-    <p>MESH is currently operating on the <strong>Stellar Testnet</strong>. Testnet XLM has no real-world monetary value. Features, reliability, and data may change without notice during the testnet phase. Do not use MESH for critical or sensitive communications until mainnet launch.</p>
+    <p>MESH is currently operating on the <strong>Stellar Testnet</strong>. Testnet XLM has no real-world monetary value. Features, reliability, and data may change without notice during the testnet phase. Do not use MESH for critical or sensitive communications. The encryption has not yet been independently reviewed.</p>
 
     <h2>7. No Warranties</h2>
     <p>MESH is provided <strong>"as is"</strong> without warranty of any kind. We do not guarantee that the service will be uninterrupted, error-free, or perfectly secure. Encryption is only as strong as your device security — if your device is compromised, your messages may be at risk.</p>
